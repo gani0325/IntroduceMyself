@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성장과정 & 진로 타임라인</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f7f7f5; color: #1a1a1a; padding: 2rem 1rem; }
+  .page { max-width: 720px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 2.5rem; }
+  .header .sub { font-size: 12px; color: #888; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .header .tagline { font-size: 14px; color: #555; font-style: italic; }
+
+  /* 범례 */
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 2rem; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* 타임라인 */
+  .timeline { position: relative; padding-left: 52px; }
+  .timeline::before { content:''; position: absolute; left: 22px; top: 8px; bottom: 8px; width: 2px; background: #ddd; border-radius: 1px; }
+
+  .item { position: relative; margin-bottom: 1.5rem; }
+  .item-dot { position: absolute; left: -38px; top: 6px; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #f7f7f5; flex-shrink: 0; }
+  .item-dot.big { width: 16px; height: 16px; left: -39px; top: 5px; }
+
+  .item-year { font-size: 11px; color: #999; font-weight: 600; margin-bottom: 4px; letter-spacing: .04em; }
+  .item-card { border-radius: 10px; padding: 12px 16px; }
+  .item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .item-desc { font-size: 12px; line-height: 1.7; }
+  .item-highlight { font-size: 12px; margin-top: 6px; font-weight: 500; }
+
+  /* 카테고리 색상 */
+  /* 학업 — 보라 */
+  .cat-school .item-dot { background: #7F77DD; }
+  .cat-school .item-card { background: #EEEDFE; border: 1px solid #AFA9EC; }
+  .cat-school .item-title { color: #3C3489; }
+  .cat-school .item-desc { color: #534AB7; }
+  .cat-school .item-highlight { color: #3C3489; }
+
+  /* 교육·수료 — 초록 */
+  .cat-edu .item-dot { background: #1D9E75; }
+  .cat-edu .item-card { background: #E1F5EE; border: 1px solid #5DCAA5; }
+  .cat-edu .item-title { color: #085041; }
+  .cat-edu .item-desc { color: #0F6E56; }
+  .cat-edu .item-highlight { color: #085041; }
+
+  /* 경력·인턴 — 파랑 */
+  .cat-work .item-dot { background: #378ADD; }
+  .cat-work .item-card { background: #E6F1FB; border: 1px solid #85B7EB; }
+  .cat-work .item-title { color: #0C447C; }
+  .cat-work .item-desc { color: #185FA5; }
+  .cat-work .item-highlight { color: #0C447C; }
+
+  /* 핵심 경력 강조 */
+  .cat-work.star .item-card { border: 2px solid #378ADD; }
+  .cat-work.star .item-dot { width: 18px; height: 18px; left: -40px; top: 4px; }
+
+  /* 자격증 — 주황 */
+  .cat-cert .item-dot { background: #EF9F27; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .badge { font-size: 11px; background: #FAEEDA; color: #633806; padding: 3px 10px; border-radius: 20px; border: 1px solid #FAC775; }
+
+  /* 목표 — 회색 */
+  .cat-goal .item-dot { background: #888780; border: 2px dashed #888780; background-clip: padding-box; }
+  .cat-goal .item-card { background: #F1EFE8; border: 1px dashed #B4B2A9; }
+  .cat-goal .item-title { color: #2C2C2A; }
+  .cat-goal .item-desc { color: #5F5E5A; }
+
+  /* 목표 그리드 */
+  .goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .goal-card { background: #fff; border-radius: 8px; padding: 12px; border: 1px solid #ddd; }
+  .goal-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #1a1a1a; }
+  .goal-card ul { font-size: 12px; color: #555; padding-left: 14px; line-height: 1.8; }
+
+  /* 강점 스택 */
+  .stack-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #ddd; }
+  .stack-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-tag { font-size: 12px; background: #fff; color: #444; padding: 4px 12px; border-radius: 20px; border: 1px solid #ddd; }
+
+  /* 핵심 포인트 */
+  .key-point { margin-top: 2rem; padding: 14px 18px; background: #fff; border-radius: 10px; border-left: 4px solid #7F77DD; }
+  .key-point .kp-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .key-point p { font-size: 13px; color: #3C3489; font-style: italic; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="sub">1995.11.16 · 전갈자리 · ENFJ</div>
+    <h1>성장과정 & 진로 타임라인</h1>
+    <div class="tagline">"부족함을 느낄 때마다 기다리지 않고 직접 채워온 엔지니어"</div>
+  </div>
+
+  <!-- 범례 -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#7F77DD;"></div>학업</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;"></div>교육·수료</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#378ADD;"></div>경력·인턴</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#EF9F27;"></div>자격증</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#888780; border: 2px dashed #888780;"></div>목표</div>
+  </div>
+
+  <!-- 타임라인 -->
+  <div class="timeline">
+
+    <!-- 학부 -->
+    <div class="item cat-school">
+      <div class="item-dot big"></div>
+      <div class="item-year">2019 – 2023</div>
+      <div class="item-card">
+        <div class="item-title">🎓 가천대학교 — 의용생체공학 + 컴퓨터공학 복수전공</div>
+        <div class="item-desc">
+          학업 우수상(Cum Laude) · 장학금 · 중학교~대학 개근<br>
+          학과 학생회 총무 · 학술 스터디 동아리 회장 · 댄스 동아리 총무<br>
+          → 하드웨어와 소프트웨어가 만나는 지점에 관심을 가지게 된 출발점
+        </div>
+      </div>
+    </div>
+
+    <!-- 연구실 -->
+    <div class="item cat-school">
+      <div class="item-dot"></div>
+      <div class="item-year">2021</div>
+      <div class="item-card">
+        <div class="item-title">🔬 학부 연구원 — iNES 연구실</div>
+        <div class="item-desc">
+          기초 없이 뛰어들어 한 달간 자료구조·알고리즘·리눅스 독학 후 합류<br>
+          AI 음원위치추정 · 라즈베리파이 스트리밍·모션 인식 · Fourier+딥러닝 위험소리 감지
+        </div>
+        <div class="item-highlight">✅ 임베디드 + AI를 처음 연결 → 개발자의 길을 확신한 출발점</div>
+      </div>
+    </div>
+
+    <!-- BOAZ -->
+    <div class="item cat-edu">
+      <div class="item-dot"></div>
+      <div class="item-year">2022 상반기</div>
+      <div class="item-card">
+        <div class="item-title">📊 BOAZ 빅데이터 동아리 + 구글 클라우드 스터디잼</div>
+        <div class="item-desc">
+          YOLOv5 + Frustum PointNets 3D 공간인식 · GCP 머신러닝·자연어 API 구현<br>
+          → 다양한 분야를 탐색하며 AI/데이터 시각을 넓힌 시기
+        </div>
+      </div>
+    </div>
+
+    <!-- 어학연수 -->
+    <div class="item cat-edu">
+      <div class="item-dot"></div>
+      <div class="item-year">2022.06 – 07</div>
+      <div class="item-card">
+        <div class="item-title">✈️ 하와이 단기 어학연수</div>
+        <div class="item-desc">영어 집중 과정 이수 → 이후 HL만도 인도·중국 글로벌 협업의 기반</div>
+      </div>
+    </div>
+
+    <!-- 인포뱅크 -->
+    <div class="item cat-work">
+      <div class="item-dot"></div>
+      <div class="item-year">2022.08 – 12</div>
+      <div class="item-card">
+        <div class="item-title">💼 인포뱅크 인턴</div>
+        <div class="item-desc">
+          LSTM + CNN 이상감지 ML 모니터링 · Dash 실시간 대시보드 · Python 이메일 자동화
+        </div>
+        <div class="item-highlight">✅ 처음으로 실제 서비스 데이터를 다룬 경험</div>
+      </div>
+    </div>
+
+    <!-- 엘리스 -->
+    <div class="item cat-edu">
+      <div class="item-dot"></div>
+      <div class="item-year">2022.11 – 2023.05</div>
+      <div class="item-card">
+        <div class="item-title">🌱 엘리스 IoT 트랙 1기 — 팀장</div>
+        <div class="item-desc">
+          MQTT · AWS EC2 · MySQL · Node.js로 스마트팜 IoT 풀스택 구현<br>
+          무결석 6개월 참여 → 성실상·리더십상 수상
+        </div>
+        <div class="item-highlight">✅ IoT 서비스 파이프라인 전체를 처음 설계·운영</div>
+      </div>
+    </div>
+
+    <!-- 자격증 -->
+    <div class="item cat-cert">
+      <div class="item-dot"></div>
+      <div class="item-year">2022 – 2023 · 자격증 취득 (5개)</div>
+      <div class="badges">
+        <span class="badge">정보처리기사</span>
+        <span class="badge">SQLD</span>
+        <span class="badge">리눅스마스터 2급</span>
+        <span class="badge">CSTS FL</span>
+        <span class="badge">자동차운전면허 1종</span>
+      </div>
+    </div>
+
+    <!-- KOSTA -->
+    <div class="item cat-edu">
+      <div class="item-dot"></div>
+      <div class="item-year">2023.08 – 12</div>
+      <div class="item-card">
+        <div class="item-title">⚙️ KOSTA C기반 스마트 IoT 개발자 과정</div>
+        <div class="item-desc">
+          FreeRTOS 멀티태스킹 · I2C·GPIO·SPI·UART·PWM 직접 구현<br>
+          MQTT 통신 · SQLite DB · gdb/valgrind 메모리 디버깅
+        </div>
+        <div class="item-highlight">✅ 임베디드 실무 기초 완성</div>
+      </div>
+    </div>
+
+    <!-- HL만도 -->
+    <div class="item cat-work star">
+      <div class="item-dot big"></div>
+      <div class="item-year">2024.02 – 2026.02 · ⭐ 핵심 경력</div>
+      <div class="item-card">
+        <div class="item-title">🚗 HL만도 — Brake SW 개발 조직 DevOps 매니저 (계약직)</div>
+        <div class="item-desc">
+          Jenkins CI/CD 파이프라인 설계·구축 · 가상 CM 봇 개발 (빌드·검증·PTC 자동화)<br>
+          Docker 기반 Polyspace 정적분석 자동화 · VectorCAST 동적 테스트 병렬 수행<br>
+          A-SPICE 품질 프로세스 운영 · PTC Windchill 형상관리<br>
+          인도·중국 글로벌 팀에 자동화 프로세스 전파·정착
+        </div>
+        <div class="item-highlight">✅ 자동차 임베디드 SW 품질·DevOps 실무 전반 경험</div>
+      </div>
+    </div>
+
+    <!-- 2024 병행 교육 -->
+    <div class="item cat-edu">
+      <div class="item-dot"></div>
+      <div class="item-year">2024 (병행)</div>
+      <div class="item-card">
+        <div class="item-title">📚 위포트 전기차·2차전지 스터디 + 코멘토 디바이스 드라이버 과정</div>
+        <div class="item-desc">
+          EV 밸류체인·배터리 소재 기술·전고체 배터리 동향<br>
+          커널 모듈·디바이스 드라이버 설계·구현 실습
+        </div>
+      </div>
+    </div>
+
+    <!-- 아카데미 -->
+    <div class="item cat-edu">
+      <div class="item-dot big"></div>
+      <div class="item-year">2026 – 현재 · 수료 예정 2026.10</div>
+      <div class="item-card" style="border-width: 2px;">
+        <div class="item-title">🔧 성남 시스템반도체 아카데미 (수강 중)</div>
+        <div class="item-desc">
+          임베디드 시스템 · 리눅스 · 프로그래밍 언어<br>
+          FPGA 설계실습 · Verilog HDL · 반도체 8대 공정 · Digital Interface<br>
+          ARM 기반 임베디드시스템 설계 · DFT · 테스트 자동화
+        </div>
+      </div>
+    </div>
+
+    <!-- 목표 -->
+    <div class="item cat-goal">
+      <div class="item-dot big" style="background:#fff; border: 2px dashed #888780;"></div>
+      <div class="item-year">2026.10 수료 후 → 목표</div>
+      <div class="item-card">
+        <div class="item-title">취업 타겟</div>
+        <div class="goal-grid">
+          <div class="goal-card">
+            <h4>🚗 자동차 임베디드 SW</h4>
+            <ul>
+              <li>현대모비스</li>
+              <li>HL클레무브</li>
+              <li>현대오토에버</li>
+              <li>만도</li>
+              <li>LG마그나</li>
+            </ul>
+          </div>
+          <div class="goal-card">
+            <h4>🔬 반도체 장비 SW</h4>
+            <ul>
+              <li>테스(TES)</li>
+              <li>원익IPS</li>
+              <li>세메스</li>
+              <li>한미반도체</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 공통 강점 -->
+  <div class="stack-section">
+    <div class="stack-label">공통 강점 스택</div>
+    <div class="stack-tags">
+      <span class="stack-tag">C/C++</span>
+      <span class="stack-tag">Linux</span>
+      <span class="stack-tag">FreeRTOS</span>
+      <span class="stack-tag">실시간 제어</span>
+      <span class="stack-tag">MQTT</span>
+      <span class="stack-tag">Jenkins CI/CD</span>
+      <span class="stack-tag">Docker</span>
+      <span class="stack-tag">Polyspace</span>
+      <span class="stack-tag">A-SPICE</span>
+      <span class="stack-tag">VectorCAST</span>
+      <span class="stack-tag">PTC Windchill</span>
+      <span class="stack-tag">AWS EC2</span>
+      <span class="stack-tag">Python</span>
+      <span class="stack-tag">FPGA/Verilog</span>
+    </div>
+  </div>
+
+  <!-- 핵심 차별점 -->
+  <div class="key-point">
+    <div class="kp-label">핵심 차별점</div>
+    <p>"임베디드 개발 + 품질/자동화(DevOps)를 동시에 아는 엔지니어"<br>
+    단순 개발자가 아니라 품질과 프로세스까지 이해하는 포지션</p>
+  </div>
+
+</div>
+</body>
+</html>
