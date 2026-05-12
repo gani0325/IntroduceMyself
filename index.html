@@ -3,92 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>성장과정 & 진로 타임라인</title>
+<title>이가은 — 포트폴리오</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f7f7f5; color: #1a1a1a; padding: 2rem 1rem; }
+  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #f7f7f5; color: #1a1a1a; }
+
+  /* ───── 탭 네비게이션 ───── */
+  .tab-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e3;
+    display: flex; justify-content: center;
+    padding: 0 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .tab-nav button {
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    color: #999;
+    padding: 14px 20px;
+    border-bottom: 2.5px solid transparent;
+    transition: color .2s, border-color .2s;
+    white-space: nowrap;
+  }
+  .tab-nav button:hover { color: #444; }
+  .tab-nav button.active { color: #7F77DD; border-bottom-color: #7F77DD; font-weight: 700; }
+
+  /* ───── 섹션 공통 ───── */
+  .section { display: none; padding: 2rem 1rem 4rem; }
+  .section.active { display: block; }
   .page { max-width: 720px; margin: 0 auto; }
 
-  .header { text-align: center; margin-bottom: 2.5rem; }
+  /* ───── 헤더 ───── */
+  .header { text-align: center; margin-bottom: 2.5rem; padding-top: 1rem; }
   .header .sub { font-size: 12px; color: #888; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
-  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
   .header .tagline { font-size: 14px; color: #555; font-style: italic; }
 
-  /* 범례 */
+  /* ───── 범례 ───── */
   .legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 2rem; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
   .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 
-  /* 타임라인 */
+  /* ───── 타임라인 ───── */
   .timeline { position: relative; padding-left: 52px; }
   .timeline::before { content:''; position: absolute; left: 22px; top: 8px; bottom: 8px; width: 2px; background: #ddd; border-radius: 1px; }
 
   .item { position: relative; margin-bottom: 1.5rem; }
   .item-dot { position: absolute; left: -38px; top: 6px; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #f7f7f5; flex-shrink: 0; }
   .item-dot.big { width: 16px; height: 16px; left: -39px; top: 5px; }
-
   .item-year { font-size: 11px; color: #999; font-weight: 600; margin-bottom: 4px; letter-spacing: .04em; }
-  .item-card { border-radius: 10px; padding: 12px 16px; }
+  .item-card {
+    border-radius: 10px; padding: 12px 16px;
+    cursor: pointer;
+    transition: filter .15s, transform .15s;
+    position: relative;
+  }
+  .item-card:hover { filter: brightness(.97); transform: translateX(3px); }
+  .item-card::after {
+    content: '사진 보기 →';
+    position: absolute; bottom: 10px; right: 12px;
+    font-size: 10px; font-weight: 600; opacity: 0;
+    transition: opacity .15s;
+    color: #888;
+  }
+  .item-card:hover::after { opacity: 1; }
+  /* 자격증 카드(badges)는 별도 */
+  .item-cert-card {
+    border-radius: 10px; padding: 12px 16px;
+    cursor: pointer;
+    transition: filter .15s, transform .15s;
+  }
+  .item-cert-card:hover { filter: brightness(.97); transform: translateX(3px); }
   .item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
   .item-desc { font-size: 12px; line-height: 1.7; }
   .item-highlight { font-size: 12px; margin-top: 6px; font-weight: 500; }
 
-  /* 카테고리 색상 */
-  /* 학업 — 보라 */
   .cat-school .item-dot { background: #7F77DD; }
   .cat-school .item-card { background: #EEEDFE; border: 1px solid #AFA9EC; }
   .cat-school .item-title { color: #3C3489; }
   .cat-school .item-desc { color: #534AB7; }
   .cat-school .item-highlight { color: #3C3489; }
 
-  /* 교육·수료 — 초록 */
   .cat-edu .item-dot { background: #1D9E75; }
   .cat-edu .item-card { background: #E1F5EE; border: 1px solid #5DCAA5; }
   .cat-edu .item-title { color: #085041; }
   .cat-edu .item-desc { color: #0F6E56; }
   .cat-edu .item-highlight { color: #085041; }
 
-  /* 경력·인턴 — 파랑 */
   .cat-work .item-dot { background: #378ADD; }
   .cat-work .item-card { background: #E6F1FB; border: 1px solid #85B7EB; }
   .cat-work .item-title { color: #0C447C; }
   .cat-work .item-desc { color: #185FA5; }
   .cat-work .item-highlight { color: #0C447C; }
-
-  /* 핵심 경력 강조 */
   .cat-work.star .item-card { border: 2px solid #378ADD; }
   .cat-work.star .item-dot { width: 18px; height: 18px; left: -40px; top: 4px; }
 
-  /* 자격증 — 주황 */
   .cat-cert .item-dot { background: #EF9F27; }
   .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .badge { font-size: 11px; background: #FAEEDA; color: #633806; padding: 3px 10px; border-radius: 20px; border: 1px solid #FAC775; }
 
-  /* 목표 — 회색 */
-  .cat-goal .item-dot { background: #888780; border: 2px dashed #888780; background-clip: padding-box; }
+  .cat-goal .item-dot { background: #fff; border: 2px dashed #888780; }
   .cat-goal .item-card { background: #F1EFE8; border: 1px dashed #B4B2A9; }
   .cat-goal .item-title { color: #2C2C2A; }
   .cat-goal .item-desc { color: #5F5E5A; }
 
-  /* 목표 그리드 */
   .goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
   .goal-card { background: #fff; border-radius: 8px; padding: 12px; border: 1px solid #ddd; }
   .goal-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #1a1a1a; }
   .goal-card ul { font-size: 12px; color: #555; padding-left: 14px; line-height: 1.8; }
 
-  /* 강점 스택 */
   .stack-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #ddd; }
   .stack-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
   .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .stack-tag { font-size: 12px; background: #fff; color: #444; padding: 4px 12px; border-radius: 20px; border: 1px solid #ddd; }
 
-  /* 핵심 포인트 */
   .key-point { margin-top: 2rem; padding: 14px 18px; background: #fff; border-radius: 10px; border-left: 4px solid #7F77DD; }
   .key-point .kp-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
   .key-point p { font-size: 13px; color: #3C3489; font-style: italic; line-height: 1.6; }
+
+  /* ───── 인증사진 필터 탭 ───── */
+  .cert-filter {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .cf-btn {
+    background: #fff; border: 1.5px solid #ddd;
+    border-radius: 20px; padding: 7px 16px;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    color: #888; cursor: pointer;
+    transition: all .18s;
+  }
+  .cf-btn:hover { border-color: #aaa; color: #444; }
+  .cf-btn.active          { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .cf-btn.school.active   { background: #7F77DD; border-color: #7F77DD; color: #fff; }
+  .cf-btn.edu.active      { background: #1D9E75; border-color: #1D9E75; color: #fff; }
+  .cf-btn.work.active     { background: #378ADD; border-color: #378ADD; color: #fff; }
+  .cf-btn.cert.active     { background: #EF9F27; border-color: #EF9F27; color: #fff; }
+
+  /* 숨김 처리 */
+  .cert-group { margin-bottom: 2.5rem; transition: opacity .2s; }
+  .cert-group.hidden { display: none; }
+
+  /* ───── 인증사진 섹션 ───── */
+  .cert-section-title {
+    text-align: center; margin-bottom: 2rem; padding-top: 1rem;
+  }
+  .cert-section-title h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .cert-section-title p { font-size: 13px; color: #888; }
+
+  /* 카테고리 그룹 */
+  .cert-group { margin-bottom: 2.5rem; }
+  .cert-group-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; color: #444;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e5e3;
+  }
+  .cert-group-label .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  /* 사진 그리드 */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  /* 사진 카드 — 카테고리별 색상 */
+  .cert-card {
+    background: #fff;
+    border: 1px solid #e5e5e3;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow .2s, transform .2s;
+    cursor: pointer;
+  }
+  .cert-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    transform: translateY(-2px);
+  }
+  /* 학업 — 보라 */
+  .cert-card.cc-school { border-color: #AFA9EC; }
+  .cert-card.cc-school .cert-img-wrap { background: #EEEDFE; }
+  .cert-card.cc-school .cert-name { color: #3C3489; }
+  .cert-card.cc-school .cert-card-body { border-top: 3px solid #7F77DD; }
+  /* 교육·수료 — 초록 */
+  .cert-card.cc-edu { border-color: #5DCAA5; }
+  .cert-card.cc-edu .cert-img-wrap { background: #E1F5EE; }
+  .cert-card.cc-edu .cert-name { color: #085041; }
+  .cert-card.cc-edu .cert-card-body { border-top: 3px solid #1D9E75; }
+  /* 경력·인턴 — 파랑 */
+  .cert-card.cc-work { border-color: #85B7EB; }
+  .cert-card.cc-work .cert-img-wrap { background: #E6F1FB; }
+  .cert-card.cc-work .cert-name { color: #0C447C; }
+  .cert-card.cc-work .cert-card-body { border-top: 3px solid #378ADD; }
+  /* 자격증 — 주황 */
+  .cert-card.cc-cert { border-color: #FAC775; }
+  .cert-card.cc-cert .cert-img-wrap { background: #FAEEDA; }
+  .cert-card.cc-cert .cert-name { color: #633806; }
+  .cert-card.cc-cert .cert-card-body { border-top: 3px solid #EF9F27; }
+
+  /* 이미지 영역 */
+  .cert-img-wrap {
+    width: 100%; aspect-ratio: 4/3;
+    background: #f0f0ee;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; color: #bbb;
+    position: relative; overflow: hidden;
+  }
+  .cert-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* 사진 없을 때 플레이스홀더 */
+  .cert-img-wrap .placeholder-icon { font-size: 28px; }
+  .cert-img-wrap .placeholder-text { font-size: 11px; color: #bbb; }
+
+  /* 카드 하단 설명 */
+  .cert-card-body { padding: 10px 12px; }
+  .cert-card-body .cert-name { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .cert-card-body .cert-date { font-size: 11px; color: #999; }
+
+  /* 라이트박스 */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,.85);
+    align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    background: #fff; border-radius: 16px;
+    max-width: 600px; width: 100%;
+    overflow: hidden; position: relative;
+  }
+  .lightbox-img-wrap {
+    width: 100%; aspect-ratio: 4/3;
+    background: #f0f0ee;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lightbox-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+  .lightbox-info { padding: 16px 20px; }
+  .lightbox-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .lightbox-info p { font-size: 13px; color: #666; }
+  .lightbox-close {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(0,0,0,.5); color: #fff;
+    border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
 </style>
 </head>
 <body>
+
+<!-- ───── 탭 네비게이션 ───── -->
+<nav class="tab-nav">
+  <button class="active" onclick="switchTab('timeline', this)">📋 타임라인</button>
+  <button onclick="switchTab('certificates', this)">🏆 인증사진</button>
+</nav>
+
+<!-- ───── 섹션 1: 타임라인 ───── -->
+<div id="timeline" class="section active">
 <div class="page">
 
   <div class="header">
@@ -97,23 +282,20 @@
     <div class="tagline">"부족함을 느낄 때마다 기다리지 않고 직접 채워온 엔지니어"</div>
   </div>
 
-  <!-- 범례 -->
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#7F77DD;"></div>학업</div>
     <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;"></div>교육·수료</div>
     <div class="legend-item"><div class="legend-dot" style="background:#378ADD;"></div>경력·인턴</div>
     <div class="legend-item"><div class="legend-dot" style="background:#EF9F27;"></div>자격증</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#888780; border: 2px dashed #888780;"></div>목표</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff; border: 2px dashed #888780;"></div>목표</div>
   </div>
 
-  <!-- 타임라인 -->
   <div class="timeline">
 
-    <!-- 학부 -->
     <div class="item cat-school">
       <div class="item-dot big"></div>
       <div class="item-year">2019 – 2023</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-school')">
         <div class="item-title">🎓 가천대학교 — 의용생체공학 + 컴퓨터공학 복수전공</div>
         <div class="item-desc">
           학업 우수상(Cum Laude) · 장학금 · 중학교~대학 개근<br>
@@ -123,11 +305,10 @@
       </div>
     </div>
 
-    <!-- 연구실 -->
     <div class="item cat-school">
       <div class="item-dot"></div>
       <div class="item-year">2021</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-school')">
         <div class="item-title">🔬 학부 연구원 — iNES 연구실</div>
         <div class="item-desc">
           기초 없이 뛰어들어 한 달간 자료구조·알고리즘·리눅스 독학 후 합류<br>
@@ -137,11 +318,10 @@
       </div>
     </div>
 
-    <!-- BOAZ -->
     <div class="item cat-edu">
       <div class="item-dot"></div>
       <div class="item-year">2022 상반기</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-edu')">
         <div class="item-title">📊 BOAZ 빅데이터 동아리 + 구글 클라우드 스터디잼</div>
         <div class="item-desc">
           YOLOv5 + Frustum PointNets 3D 공간인식 · GCP 머신러닝·자연어 API 구현<br>
@@ -150,21 +330,19 @@
       </div>
     </div>
 
-    <!-- 어학연수 -->
     <div class="item cat-edu">
       <div class="item-dot"></div>
       <div class="item-year">2022.06 – 07</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-edu')">
         <div class="item-title">✈️ 하와이 단기 어학연수</div>
         <div class="item-desc">영어 집중 과정 이수 → 이후 HL만도 인도·중국 글로벌 협업의 기반</div>
       </div>
     </div>
 
-    <!-- 인포뱅크 -->
     <div class="item cat-work">
       <div class="item-dot"></div>
       <div class="item-year">2022.08 – 12</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-work')">
         <div class="item-title">💼 인포뱅크 인턴</div>
         <div class="item-desc">
           LSTM + CNN 이상감지 ML 모니터링 · Dash 실시간 대시보드 · Python 이메일 자동화
@@ -173,11 +351,10 @@
       </div>
     </div>
 
-    <!-- 엘리스 -->
     <div class="item cat-edu">
       <div class="item-dot"></div>
       <div class="item-year">2022.11 – 2023.05</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-edu')">
         <div class="item-title">🌱 엘리스 IoT 트랙 1기 — 팀장</div>
         <div class="item-desc">
           MQTT · AWS EC2 · MySQL · Node.js로 스마트팜 IoT 풀스택 구현<br>
@@ -187,24 +364,24 @@
       </div>
     </div>
 
-    <!-- 자격증 -->
     <div class="item cat-cert">
       <div class="item-dot"></div>
       <div class="item-year">2022 – 2023 · 자격증 취득 (5개)</div>
-      <div class="badges">
-        <span class="badge">정보처리기사</span>
-        <span class="badge">SQLD</span>
-        <span class="badge">리눅스마스터 2급</span>
-        <span class="badge">CSTS FL</span>
-        <span class="badge">자동차운전면허 1종</span>
+      <div class="item-cert-card" onclick="goToCert('cert-cert')">
+        <div class="badges">
+          <span class="badge">정보처리기사</span>
+          <span class="badge">SQLD</span>
+          <span class="badge">리눅스마스터 2급</span>
+          <span class="badge">CSTS FL</span>
+          <span class="badge">자동차운전면허 1종</span>
+        </div>
       </div>
     </div>
 
-    <!-- KOSTA -->
     <div class="item cat-edu">
       <div class="item-dot"></div>
       <div class="item-year">2023.08 – 12</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-edu')">
         <div class="item-title">⚙️ KOSTA C기반 스마트 IoT 개발자 과정</div>
         <div class="item-desc">
           FreeRTOS 멀티태스킹 · I2C·GPIO·SPI·UART·PWM 직접 구현<br>
@@ -214,11 +391,10 @@
       </div>
     </div>
 
-    <!-- HL만도 -->
     <div class="item cat-work star">
       <div class="item-dot big"></div>
       <div class="item-year">2024.02 – 2026.02 · ⭐ 핵심 경력</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-work')">
         <div class="item-title">🚗 HL만도 — Brake SW 개발 조직 DevOps 매니저 (계약직)</div>
         <div class="item-desc">
           Jenkins CI/CD 파이프라인 설계·구축 · 가상 CM 봇 개발 (빌드·검증·PTC 자동화)<br>
@@ -230,11 +406,10 @@
       </div>
     </div>
 
-    <!-- 2024 병행 교육 -->
     <div class="item cat-edu">
       <div class="item-dot"></div>
       <div class="item-year">2024 (병행)</div>
-      <div class="item-card">
+      <div class="item-card" onclick="goToCert('cert-edu')">
         <div class="item-title">📚 위포트 전기차·2차전지 스터디 + 코멘토 디바이스 드라이버 과정</div>
         <div class="item-desc">
           EV 밸류체인·배터리 소재 기술·전고체 배터리 동향<br>
@@ -243,11 +418,10 @@
       </div>
     </div>
 
-    <!-- 아카데미 -->
     <div class="item cat-edu">
       <div class="item-dot big"></div>
       <div class="item-year">2026 – 현재 · 수료 예정 2026.10</div>
-      <div class="item-card" style="border-width: 2px;">
+      <div class="item-card" style="border-width:2px;" onclick="goToCert('cert-edu')">
         <div class="item-title">🔧 성남 시스템반도체 아카데미 (수강 중)</div>
         <div class="item-desc">
           임베디드 시스템 · 리눅스 · 프로그래밍 언어<br>
@@ -257,9 +431,8 @@
       </div>
     </div>
 
-    <!-- 목표 -->
     <div class="item cat-goal">
-      <div class="item-dot big" style="background:#fff; border: 2px dashed #888780;"></div>
+      <div class="item-dot big" style="background:#fff; border:2px dashed #888780;"></div>
       <div class="item-year">2026.10 수료 후 → 목표</div>
       <div class="item-card">
         <div class="item-title">취업 타겟</div>
@@ -267,20 +440,13 @@
           <div class="goal-card">
             <h4>🚗 자동차 임베디드 SW</h4>
             <ul>
-              <li>현대모비스</li>
-              <li>HL클레무브</li>
-              <li>현대오토에버</li>
-              <li>만도</li>
-              <li>LG마그나</li>
+              <li>현대모비스</li><li>HL클레무브</li><li>현대오토에버</li><li>만도</li><li>LG마그나</li>
             </ul>
           </div>
           <div class="goal-card">
             <h4>🔬 반도체 장비 SW</h4>
             <ul>
-              <li>테스(TES)</li>
-              <li>원익IPS</li>
-              <li>세메스</li>
-              <li>한미반도체</li>
+              <li>테스(TES)</li><li>원익IPS</li><li>세메스</li><li>한미반도체</li>
             </ul>
           </div>
         </div>
@@ -289,28 +455,19 @@
 
   </div>
 
-  <!-- 공통 강점 -->
   <div class="stack-section">
     <div class="stack-label">공통 강점 스택</div>
     <div class="stack-tags">
-      <span class="stack-tag">C/C++</span>
-      <span class="stack-tag">Linux</span>
-      <span class="stack-tag">FreeRTOS</span>
-      <span class="stack-tag">실시간 제어</span>
-      <span class="stack-tag">MQTT</span>
-      <span class="stack-tag">Jenkins CI/CD</span>
-      <span class="stack-tag">Docker</span>
-      <span class="stack-tag">Polyspace</span>
-      <span class="stack-tag">A-SPICE</span>
-      <span class="stack-tag">VectorCAST</span>
-      <span class="stack-tag">PTC Windchill</span>
-      <span class="stack-tag">AWS EC2</span>
-      <span class="stack-tag">Python</span>
-      <span class="stack-tag">FPGA/Verilog</span>
+      <span class="stack-tag">C/C++</span><span class="stack-tag">Linux</span>
+      <span class="stack-tag">FreeRTOS</span><span class="stack-tag">실시간 제어</span>
+      <span class="stack-tag">MQTT</span><span class="stack-tag">Jenkins CI/CD</span>
+      <span class="stack-tag">Docker</span><span class="stack-tag">Polyspace</span>
+      <span class="stack-tag">A-SPICE</span><span class="stack-tag">VectorCAST</span>
+      <span class="stack-tag">PTC Windchill</span><span class="stack-tag">AWS EC2</span>
+      <span class="stack-tag">Python</span><span class="stack-tag">FPGA/Verilog</span>
     </div>
   </div>
 
-  <!-- 핵심 차별점 -->
   <div class="key-point">
     <div class="kp-label">핵심 차별점</div>
     <p>"임베디드 개발 + 품질/자동화(DevOps)를 동시에 아는 엔지니어"<br>
@@ -318,5 +475,349 @@
   </div>
 
 </div>
+</div>
+
+<!-- ───── 섹션 2: 인증사진 ───── -->
+<div id="certificates" class="section">
+<div class="page">
+
+  <div class="cert-section-title">
+    <h2>🏆 인증사진</h2>
+    <p>카드를 클릭하면 크게 볼 수 있어요</p>
+  </div>
+
+  <!-- 카테고리 필터 탭 -->
+  <div class="cert-filter">
+    <button class="cf-btn active" onclick="filterCert('all', this)">전체</button>
+    <button class="cf-btn school" onclick="filterCert('cert-school', this)">🟣 학업</button>
+    <button class="cf-btn edu"    onclick="filterCert('cert-edu',    this)">🟢 교육·수료</button>
+    <button class="cf-btn work"   onclick="filterCert('cert-work',   this)">🔵 경력·인턴</button>
+    <button class="cf-btn cert"   onclick="filterCert('cert-cert',   this)">🟠 자격증</button>
+  </div>
+
+  <!-- 학업 (보라) -->
+  <div class="cert-group" id="cert-school">
+    <div class="cert-group-label" style="border-bottom-color:#7F77DD;">
+      <div class="dot" style="background:#7F77DD;"></div>
+      학업
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card cc-school" onclick="openLightbox('학업', '가천대학교 졸업증서', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/school_졸업증서.jpg" alt="졸업증서"> -->
+          <div class="placeholder-icon">🎓</div>
+          <div class="placeholder-text">images/school_졸업증서.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">졸업증서</div>
+          <div class="cert-date">가천대학교 · 2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-school" onclick="openLightbox('학업', '학업 우수상 (Cum Laude)', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/school_우수상.jpg" alt="학업 우수상"> -->
+          <div class="placeholder-icon">🏅</div>
+          <div class="placeholder-text">images/school_우수상.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">학업 우수상 (Cum Laude)</div>
+          <div class="cert-date">가천대학교 · 2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-school" onclick="openLightbox('학업', 'iNES 연구실 활동', '2021')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/school_ines.jpg" alt="iNES 연구실"> -->
+          <div class="placeholder-icon">🔬</div>
+          <div class="placeholder-text">images/school_ines.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">iNES 연구실 활동</div>
+          <div class="cert-date">가천대학교 · 2021</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 교육·수료 (초록) -->
+  <div class="cert-group" id="cert-edu">
+    <div class="cert-group-label" style="border-bottom-color:#1D9E75;">
+      <div class="dot" style="background:#1D9E75;"></div>
+      교육·수료
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료', '엘리스 IoT 트랙 수료증', '2023.05')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/edu_엘리스_수료증.jpg" alt="엘리스 수료증"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/edu_엘리스_수료증.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">엘리스 IoT 트랙 수료증</div>
+          <div class="cert-date">2023.05</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료', '엘리스 성실상·리더십상', '2023.05')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/edu_엘리스_수상.jpg" alt="엘리스 수상"> -->
+          <div class="placeholder-icon">🏅</div>
+          <div class="placeholder-text">images/edu_엘리스_수상.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">성실상 · 리더십상</div>
+          <div class="cert-date">엘리스 IoT 트랙 · 2023.05</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료', 'KOSTA 수료증', '2023.12')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/edu_KOSTA.jpg" alt="KOSTA 수료증"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/edu_KOSTA.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">KOSTA 수료증</div>
+          <div class="cert-date">C기반 스마트 IoT · 2023.12</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료', '하와이 어학연수', '2022.06-07')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/edu_hawaii.jpg" alt="하와이 어학연수"> -->
+          <div class="placeholder-icon">✈️</div>
+          <div class="placeholder-text">images/edu_hawaii.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">하와이 단기 어학연수</div>
+          <div class="cert-date">2022.06 – 07</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료', '성남 시스템반도체 아카데미', '2026')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/edu_academy.jpg" alt="시스템반도체 아카데미"> -->
+          <div class="placeholder-icon">🔧</div>
+          <div class="placeholder-text">images/edu_academy.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">시스템반도체 아카데미</div>
+          <div class="cert-date">성남 · 2026 (수강중)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 경력·인턴 (파랑) -->
+  <div class="cert-group" id="cert-work">
+    <div class="cert-group-label" style="border-bottom-color:#378ADD;">
+      <div class="dot" style="background:#378ADD;"></div>
+      경력·인턴
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴', 'ML 모니터링 대시보드 (인포뱅크)', '2022')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/work_infobank_dashboard.jpg" alt="인포뱅크 대시보드"> -->
+          <div class="placeholder-icon">💻</div>
+          <div class="placeholder-text">images/work_infobank_dashboard.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">ML 모니터링 대시보드</div>
+          <div class="cert-date">인포뱅크 인턴 · 2022</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴', 'Jenkins CI/CD 파이프라인 (HL만도)', '2024')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/work_hlmando_cicd.jpg" alt="Jenkins CI/CD"> -->
+          <div class="placeholder-icon">💻</div>
+          <div class="placeholder-text">images/work_hlmando_cicd.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">Jenkins CI/CD 파이프라인</div>
+          <div class="cert-date">HL만도 · 2024</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴', 'Polyspace 정적분석 자동화 (HL만도)', '2024')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/work_hlmando_polyspace.jpg" alt="Polyspace"> -->
+          <div class="placeholder-icon">💻</div>
+          <div class="placeholder-text">images/work_hlmando_polyspace.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">Polyspace 정적분석 자동화</div>
+          <div class="cert-date">HL만도 · 2024</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴', '스마트팜 IoT 풀스택 (엘리스)', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/work_smartfarm.jpg" alt="스마트팜 IoT"> -->
+          <div class="placeholder-icon">🌱</div>
+          <div class="placeholder-text">images/work_smartfarm.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">스마트팜 IoT 풀스택</div>
+          <div class="cert-date">엘리스 프로젝트 · 2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴', 'FPGA 설계 실습', '2026')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/work_fpga.jpg" alt="FPGA 설계"> -->
+          <div class="placeholder-icon">🔬</div>
+          <div class="placeholder-text">images/work_fpga.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">FPGA 설계 실습</div>
+          <div class="cert-date">성남 아카데미 · 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 자격증 (주황) -->
+  <div class="cert-group" id="cert-cert">
+    <div class="cert-group-label" style="border-bottom-color:#EF9F27;">
+      <div class="dot" style="background:#EF9F27;"></div>
+      자격증
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증', '정보처리기사', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/cert_정보처리기사.jpg" alt="정보처리기사"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/cert_정보처리기사.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">정보처리기사</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증', 'SQLD', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/cert_SQLD.jpg" alt="SQLD"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/cert_SQLD.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">SQLD</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증', '리눅스마스터 2급', '2023')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/cert_리눅스마스터.jpg" alt="리눅스마스터 2급"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/cert_리눅스마스터.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">리눅스마스터 2급</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증', 'CSTS FL', '2022')">
+        <div class="cert-img-wrap">
+          <!-- <img src="images/cert_CSTS.jpg" alt="CSTS FL"> -->
+          <div class="placeholder-icon">📄</div>
+          <div class="placeholder-text">images/cert_CSTS.jpg</div>
+        </div>
+        <div class="cert-card-body">
+          <div class="cert-name">CSTS FL</div>
+          <div class="cert-date">2022</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ───── 라이트박스 ───── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-img-wrap" id="lb-img-wrap">
+      <div style="font-size:48px;">🖼️</div>
+    </div>
+    <div class="lightbox-info">
+      <h3 id="lb-title"></h3>
+      <p id="lb-date"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 인증사진 카테고리 필터
+  function filterCert(targetId, btn) {
+    document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.cert-group').forEach(g => {
+      if (targetId === 'all' || g.id === targetId) {
+        g.classList.remove('hidden');
+      } else {
+        g.classList.add('hidden');
+      }
+    });
+  }
+
+  // 타임라인 카드 클릭 → 인증사진 탭 이동 + 해당 섹션으로 스크롤
+  function goToCert(anchorId) {
+    const certBtn = document.querySelector('.tab-nav button:nth-child(2)');
+    switchTab('certificates', certBtn);
+
+    // 해당 카테고리 필터 자동 활성화
+    const filterMap = {
+      'cert-school': '.cf-btn.school',
+      'cert-edu':    '.cf-btn.edu',
+      'cert-work':   '.cf-btn.work',
+      'cert-cert':   '.cf-btn.cert',
+    };
+    const targetBtn = document.querySelector(filterMap[anchorId]);
+    if (targetBtn) filterCert(anchorId, targetBtn);
+
+    setTimeout(() => {
+      const target = document.getElementById(anchorId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function openLightbox(category, name, date) {
+    document.getElementById('lb-title').textContent = name;
+    document.getElementById('lb-date').textContent = category + ' · ' + date;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 </body>
 </html>
