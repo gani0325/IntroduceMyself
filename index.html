@@ -143,6 +143,66 @@
   .lightbox-info { padding: 16px 20px; }
   .lightbox-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
   .lightbox-info p { font-size: 13px; color: #666; }
+  /* ───── 나에 대해 섹션 ───── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 1.5rem; }
+  @media (max-width: 520px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    border: 1px solid #e5e5e3;
+  }
+  .about-card-title {
+    font-size: 13px; font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding-bottom: 10px; border-bottom: 2px solid #f0f0ee;
+  }
+  .about-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+  .about-row .label { font-weight: 600; color: #888; min-width: 52px; font-size: 11px; padding-top: 2px; }
+  .about-row .value { color: #1a1a1a; line-height: 1.6; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .about-tag {
+    font-size: 11px; padding: 4px 12px; border-radius: 20px;
+    font-weight: 600;
+  }
+  .about-tag.hobby { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
+  .about-tag.skill { background: #EEEDFE; color: #3C3489; border: 1px solid #AFA9EC; }
+  .about-tag.cert  { background: #FAEEDA; color: #633806; border: 1px solid #FAC775; }
+  /* ───── 활동 갤러리 ───── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 520px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  .gallery-card {
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid #e5e5e3; background: #fff;
+    cursor: pointer; transition: box-shadow .2s, transform .2s;
+  }
+  .gallery-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
+  .gallery-card.g-hidden { display: none; }
+  .gallery-img-wrap {
+    width: 100%; aspect-ratio: 4/3; background: #f5f5f3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px; overflow: hidden; position: relative;
+  }
+  .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-placeholder { font-size: 26px; }
+  .gallery-placeholder-path { font-size: 9px; color: #ccc; text-align: center; padding: 0 6px; }
+  .gallery-caption {
+    padding: 7px 10px; font-size: 11px; font-weight: 600;
+    color: #444; border-top: 1px solid #f0f0ee;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .about-section-title { text-align: center; margin-bottom: 2rem; padding-top: 1rem; }
+  .about-section-title h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .about-section-title p { font-size: 13px; color: #888; }
+  .personality-bar-wrap { margin-bottom: 10px; }
+  .personality-bar-label { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 4px; }
+  .personality-bar { height: 6px; background: #f0f0ee; border-radius: 3px; overflow: hidden; }
+  .personality-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7F77DD, #A89FEE); }
+
   .lightbox-close { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,.5); color: #fff; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
@@ -151,6 +211,7 @@
 <nav class="tab-nav">
   <button class="active" onclick="switchTab('timeline', this)">&#128203; 타임라인</button>
   <button onclick="switchTab('certificates', this)">&#127942; 인증사진</button>
+  <button onclick="switchTab('about', this)">&#128100; 나에 대해</button>
 </nav>
 
 <div id="timeline" class="section active">
@@ -168,11 +229,11 @@
         <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
-      <a href="https://alpaca-gt.tistory.com/" target="_blank">
+      <a href="https://your-blog.tistory.com" target="_blank">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FF5B35"/><circle cx="8" cy="12" r="2" fill="#fff"/><circle cx="12" cy="12" r="2" fill="#fff"/><circle cx="16" cy="12" r="2" fill="#fff"/></svg>
         Tistory
       </a>
-      <a href="https://www.notion.so/ing-35df14444ec480c3bd9be41608f7e94d?source=copy_link" target="_blank">
+      <a href="https://notion.so/" target="_blank">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>
         Notion
       </a>
@@ -382,6 +443,222 @@
 </div>
 </div>
 
+<div id="about" class="section">
+<div class="page">
+
+  <div class="about-section-title">
+    <h2>&#128100; 나에 대해</h2>
+    <p>인적성 · 취미 · 특기</p>
+  </div>
+
+  <div class="about-grid">
+
+    <!-- 인적성 -->
+    <div class="about-card" style="border-top: 3px solid #7F77DD;">
+      <div class="about-card-title" style="color:#3C3489;">&#129489; 인적성</div>
+      <div class="about-row"><span class="label">생년월일</span><span class="value">2000.03.25</span></div>
+      <div class="about-row"><span class="label">별자리</span><span class="value">&#9800; 양자리 (Aries)</span></div>
+      <div class="about-row"><span class="label">MBTI</span><span class="value">ENFJ &mdash; 선도자형<br><span style="font-size:11px;color:#888;">공감능력 ↑ · 리더십 ↑ · 계획적</span></span></div>
+      <div class="about-row"><span class="label">성격</span><span class="value">추진력 · 성실함 · 긍정적<br>팀원과의 소통을 중시하는 스타일</span></div>
+      <div style="margin-top:14px;">
+        <div class="personality-bar-wrap">
+          <div class="personality-bar-label"><span>추진력</span><span>95%</span></div>
+          <div class="personality-bar"><div class="personality-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="personality-bar-wrap">
+          <div class="personality-bar-label"><span>성실함</span><span>98%</span></div>
+          <div class="personality-bar"><div class="personality-bar-fill" style="width:98%"></div></div>
+        </div>
+        <div class="personality-bar-wrap">
+          <div class="personality-bar-label"><span>독학력</span><span>90%</span></div>
+          <div class="personality-bar"><div class="personality-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="personality-bar-wrap">
+          <div class="personality-bar-label"><span>커뮤니케이션</span><span>88%</span></div>
+          <div class="personality-bar"><div class="personality-bar-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 특기 -->
+    <div class="about-card" style="border-top: 3px solid #378ADD;">
+      <div class="about-card-title" style="color:#0C447C;">&#9889; 특기</div>
+      <div class="about-row" style="margin-bottom:14px;">
+        <span class="value" style="font-size:12px;color:#555;line-height:1.8;">
+          기초 없이도 뛰어들어 빠르게 익히는 독학력이 가장 큰 특기예요.<br>
+          자동화 파이프라인 구축부터 임베디드 개발까지 폭넓은 실전 경험이 있어요.
+        </span>
+      </div>
+      <div class="about-tags">
+        <span class="about-tag skill">DevOps 자동화</span>
+        <span class="about-tag skill">임베디드 개발</span>
+        <span class="about-tag skill">빠른 독학</span>
+        <span class="about-tag skill">CI/CD 구축</span>
+        <span class="about-tag skill">문서화 · 프로세스</span>
+        <span class="about-tag skill">글로벌 협업</span>
+        <span class="about-tag cert">정보처리기사</span>
+        <span class="about-tag cert">SQLD</span>
+        <span class="about-tag cert">리눅스마스터 2급</span>
+      </div>
+    </div>
+
+    <!-- 취미 -->
+    <div class="about-card" style="border-top: 3px solid #1D9E75; grid-column: 1 / -1;">
+      <div class="about-card-title" style="color:#085041;">&#127381; 취미</div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap:12px;">
+
+        <div style="background:#F0FDF8; border-radius:10px; padding:14px; border:1px solid #5DCAA5;">
+          <div style="font-size:20px; margin-bottom:6px;">&#129355;</div>
+          <div style="font-weight:700; font-size:13px; color:#085041; margin-bottom:4px;">주짓수</div>
+          <div style="font-size:11px; color:#0F6E56; line-height:1.6;">퍼플 벨트 1그랄<br>대회 출전 · 2등 입상</div>
+        </div>
+
+        <div style="background:#F0FDF8; border-radius:10px; padding:14px; border:1px solid #5DCAA5;">
+          <div style="font-size:20px; margin-bottom:6px;">&#128675;</div>
+          <div style="font-weight:700; font-size:13px; color:#085041; margin-bottom:4px;">수영 · 등산 · 러닝</div>
+          <div style="font-size:11px; color:#0F6E56; line-height:1.6;">꾸준한 체력 관리<br>아웃도어 활동 즐김</div>
+        </div>
+
+        <div style="background:#F0FDF8; border-radius:10px; padding:14px; border:1px solid #5DCAA5;">
+          <div style="font-size:20px; margin-bottom:6px;">&#128131;</div>
+          <div style="font-weight:700; font-size:13px; color:#085041; margin-bottom:4px;">방송댄스</div>
+          <div style="font-size:11px; color:#0F6E56; line-height:1.6;">대학 동아리 활동<br>공연 · 축제 다수 참여</div>
+        </div>
+
+        <div style="background:#F0FDF8; border-radius:10px; padding:14px; border:1px solid #5DCAA5;">
+          <div style="font-size:20px; margin-bottom:6px;">&#127758;</div>
+          <div style="font-weight:700; font-size:13px; color:#085041; margin-bottom:4px;">중국어 배우기</div>
+          <div style="font-size:11px; color:#0F6E56; line-height:1.6;">도전 중 &mdash; 글로벌<br>협업 경험에서 비롯됨</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 활동 갤러리 -->
+  <div style="margin-top: 2rem;">
+    <div class="about-card-title" style="color:#1a1a1a; font-size:15px; border-bottom: 2px solid #f0f0ee; padding-bottom:10px; margin-bottom:16px;">&#128247; 활동 갤러리</div>
+
+    <!-- 필터 -->
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+      <button class="cf-btn active" onclick="filterGallery('all',this)">전체</button>
+      <button class="cf-btn" onclick="filterGallery('jiu',this)">&#129355; 주짓수</button>
+      <button class="cf-btn" onclick="filterGallery('dance',this)">&#128131; 댄스</button>
+      <button class="cf-btn" onclick="filterGallery('travel',this)">&#127758; 여행·연수</button>
+      <button class="cf-btn" onclick="filterGallery('study',this)">&#128218; 스터디·동아리</button>
+      <button class="cf-btn" onclick="filterGallery('daily',this)">&#127774; 일상</button>
+    </div>
+
+    <!-- 그리드 -->
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- 주짓수 대회 -->
+      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 대회 2등 입상','주짓수 대회')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_jiu_대회.jpg" alt="주짓수 대회"> -->
+          <div class="gallery-placeholder">&#129355;</div>
+          <div class="gallery-placeholder-path">images/act_jiu_대회.jpg</div>
+        </div>
+        <div class="gallery-caption">주짓수 대회 2등 입상</div>
+      </div>
+
+      <!-- 주짓수 훈련 -->
+      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 훈련','주짓수 훈련')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_jiu_훈련.jpg" alt="주짓수 훈련"> -->
+          <div class="gallery-placeholder">&#129355;</div>
+          <div class="gallery-placeholder-path">images/act_jiu_훈련.jpg</div>
+        </div>
+        <div class="gallery-caption">주짓수 훈련</div>
+      </div>
+
+      <!-- 댄스 공연 -->
+      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 공연','댄스 공연·축제')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_dance_공연.jpg" alt="댄스 공연"> -->
+          <div class="gallery-placeholder">&#128131;</div>
+          <div class="gallery-placeholder-path">images/act_dance_공연.jpg</div>
+        </div>
+        <div class="gallery-caption">댄스 공연</div>
+      </div>
+
+      <!-- 댄스 축제 -->
+      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 축제','댄스 공연·축제')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_dance_축제.jpg" alt="댄스 축제"> -->
+          <div class="gallery-placeholder">&#128131;</div>
+          <div class="gallery-placeholder-path">images/act_dance_축제.jpg</div>
+        </div>
+        <div class="gallery-caption">댄스 축제</div>
+      </div>
+
+      <!-- 하와이 어학연수 -->
+      <div class="gallery-card" data-cat="travel" onclick="openGallery('하와이 단기 어학연수','여행·연수')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_hawaii.jpg" alt="하와이 어학연수"> -->
+          <div class="gallery-placeholder">&#9992;&#65039;</div>
+          <div class="gallery-placeholder-path">images/act_hawaii.jpg</div>
+        </div>
+        <div class="gallery-caption">하와이 어학연수</div>
+      </div>
+
+      <!-- 여행 -->
+      <div class="gallery-card" data-cat="travel" onclick="openGallery('여행','여행·연수')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_travel.jpg" alt="여행"> -->
+          <div class="gallery-placeholder">&#127758;</div>
+          <div class="gallery-placeholder-path">images/act_travel.jpg</div>
+        </div>
+        <div class="gallery-caption">여행</div>
+      </div>
+
+      <!-- 스터디 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('BOAZ 빅데이터 스터디','스터디·동아리')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_boaz.jpg" alt="BOAZ 스터디"> -->
+          <div class="gallery-placeholder">&#128202;</div>
+          <div class="gallery-placeholder-path">images/act_boaz.jpg</div>
+        </div>
+        <div class="gallery-caption">BOAZ 빅데이터 스터디</div>
+      </div>
+
+      <!-- 동아리 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('학술 스터디 동아리','스터디·동아리')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_club.jpg" alt="동아리"> -->
+          <div class="gallery-placeholder">&#128218;</div>
+          <div class="gallery-placeholder-path">images/act_club.jpg</div>
+        </div>
+        <div class="gallery-caption">학술 스터디 동아리</div>
+      </div>
+
+      <!-- 일상 1 -->
+      <div class="gallery-card" data-cat="daily" onclick="openGallery('일상','일상')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_daily1.jpg" alt="일상"> -->
+          <div class="gallery-placeholder">&#127774;</div>
+          <div class="gallery-placeholder-path">images/act_daily1.jpg</div>
+        </div>
+        <div class="gallery-caption">일상</div>
+      </div>
+
+      <!-- 일상 2 -->
+      <div class="gallery-card" data-cat="daily" onclick="openGallery('일상 2','일상')">
+        <div class="gallery-img-wrap">
+          <!-- <img src="images/act_daily2.jpg" alt="일상"> -->
+          <div class="gallery-placeholder">&#127774;</div>
+          <div class="gallery-placeholder-path">images/act_daily2.jpg</div>
+        </div>
+        <div class="gallery-caption">일상 2</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-inner">
     <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
@@ -423,6 +700,18 @@
     if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close'))
       document.getElementById('lightbox').classList.remove('open');
   }
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('#galleryGrid .cf-btn, .about-card ~ div .cf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-card').forEach(c => {
+      if (cat === 'all' || c.dataset.cat === cat) c.classList.remove('g-hidden');
+      else c.classList.add('g-hidden');
+    });
+  }
+  function openGallery(name, category) {
+    openLightbox(category, name, '활동');
+  }
+
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
