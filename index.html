@@ -30,6 +30,11 @@
   }
   .header .links a:hover { border-color: #aaa; color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,.08); transform: translateY(-1px); }
   .header .links a svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .header .links a.dl-btn {
+    background: #0D9488; border-color: #0D9488; color: #fff;
+    font-weight: 700;
+  }
+  .header .links a.dl-btn:hover { background: #0B7A70; border-color: #0B7A70; box-shadow: 0 4px 12px rgba(13,148,136,.35); }
   .header .links { display: flex; justify-content: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
   .header .links a {
     display: flex; align-items: center; gap: 6px;
@@ -41,6 +46,11 @@
   }
   .header .links a:hover { border-color: #aaa; color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,.08); transform: translateY(-1px); }
   .header .links a svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .header .links a.dl-btn {
+    background: #0D9488; border-color: #0D9488; color: #fff;
+    font-weight: 700;
+  }
+  .header .links a.dl-btn:hover { background: #0B7A70; border-color: #0B7A70; box-shadow: 0 4px 12px rgba(13,148,136,.35); }
   .legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 2rem; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
   .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
@@ -166,6 +176,52 @@
   .about-tag.hobby { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
   .about-tag.skill { background: #EEEDFE; color: #3C3489; border: 1px solid #AFA9EC; }
   .about-tag.cert  { background: #FAEEDA; color: #633806; border: 1px solid #FAC775; }
+
+  /* ───── 사주 섹션 ───── */
+  .saju-section-title { text-align: center; margin-bottom: 2rem; padding-top: 1rem; }
+  .saju-section-title h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .saju-section-title p { font-size: 13px; color: #888; }
+
+  .saju-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.5rem; }
+  @media (max-width: 520px) { .saju-grid { grid-template-columns: 1fr; } }
+
+  .saju-card { background: #fff; border-radius: 14px; padding: 18px; border: 1px solid #e5e5e3; }
+  .saju-card-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #f0f0ee; display: flex; align-items: center; gap: 6px; }
+
+  /* 오행 바 */
+  .ohang-row { margin-bottom: 10px; }
+  .ohang-label { display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-bottom: 4px; font-weight: 600; }
+  .ohang-bar { height: 8px; background: #f0f0ee; border-radius: 4px; overflow: hidden; }
+  .ohang-fill { height: 100%; border-radius: 4px; }
+
+  /* 키워드 태그 */
+  .saju-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .saju-tag { font-size: 11px; padding: 4px 11px; border-radius: 20px; font-weight: 600; }
+  .saju-tag.positive { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
+  .saju-tag.caution  { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+  .saju-tag.purple   { background: #EEEDFE; color: #3C3489; border: 1px solid #AFA9EC; }
+  .saju-tag.blue     { background: #E6F1FB; color: #0C447C; border: 1px solid #85B7EB; }
+
+  /* 성향 분석 카드 */
+  .saju-insight { background: #fff; border-radius: 14px; padding: 18px; border: 1px solid #e5e5e3; margin-bottom: 14px; }
+  .saju-insight-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .saju-insight-body { font-size: 12px; color: #555; line-height: 1.85; }
+  .saju-insight-body strong { color: #1a1a1a; font-weight: 700; }
+
+  /* 직업 카드 그리드 */
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 8px; margin-top: 10px; }
+  .career-item { background: #F8F7FF; border: 1px solid #AFA9EC; border-radius: 10px; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #3C3489; text-align: center; }
+
+  /* 운 흐름 타임라인 */
+  .luck-timeline { margin-top: 10px; }
+  .luck-item { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .luck-dot { width: 10px; height: 10px; border-radius: 50%; background: #7F77DD; flex-shrink: 0; margin-top: 4px; }
+  .luck-text { font-size: 12px; color: #555; line-height: 1.7; }
+  .luck-text strong { color: #3C3489; }
+
+  .saju-quote { margin-top: 1.5rem; padding: 16px 20px; background: linear-gradient(135deg, #F8F7FF, #EEF6FF); border-radius: 12px; border-left: 4px solid #7F77DD; }
+  .saju-quote p { font-size: 13px; color: #3C3489; font-style: italic; line-height: 1.7; }
+
   /* ───── 활동 갤러리 ───── */
   .gallery-grid {
     display: grid;
@@ -212,6 +268,7 @@
   <button class="active" onclick="switchTab('timeline', this)">&#128203; 타임라인</button>
   <button onclick="switchTab('certificates', this)">&#127942; 인증사진</button>
   <button onclick="switchTab('about', this)">&#128100; 나에 대해</button>
+  <button onclick="switchTab('saju', this)">&#128302; 사주·인생</button>
 </nav>
 
 <div id="timeline" class="section active">
@@ -222,21 +279,15 @@
     <div class="tagline">&ldquo;인생의 Default 값은 GO! 부족함을 느낄 때마다 기다리지 않고 직접 채워온 엔지니어&rdquo;</div>
     <div class="links">
       <a href="https://github.com/gani0325" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        GitHub
-      </a>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg> GitHub </a>
       <a href="https://linkedin.com/in/" target="_blank">
-        <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
+        <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn </a>
       <a href="https://your-blog.tistory.com" target="_blank">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FF5B35"/><circle cx="8" cy="12" r="2" fill="#fff"/><circle cx="12" cy="12" r="2" fill="#fff"/><circle cx="16" cy="12" r="2" fill="#fff"/></svg>
-        Tistory
-      </a>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FF5B35"/><circle cx="8" cy="12" r="2" fill="#fff"/><circle cx="12" cy="12" r="2" fill="#fff"/><circle cx="16" cy="12" r="2" fill="#fff"/></svg> Blog </a>
       <a href="https://notion.so/" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>
-        Notion
-      </a>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg> Notion </a>
+      <a href="portfolio/Gaeun_Lee_Portfolio.pdf" download class="dl-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M3 19h18"/></svg> Resume </a>
     </div>
   </div>
   <div class="legend">
@@ -658,6 +709,190 @@
 
 </div>
 </div>
+
+<div id="saju" class="section">
+<div class="page">
+
+  <div class="saju-section-title">
+    <h2>&#128302; 사주·인생</h2>
+    <p>2000.03.25 · 임수(壬水) 일간 · 양자리</p>
+  </div>
+
+  <!-- 오행 분포 + 일간 -->
+  <div class="saju-grid">
+
+    <div class="saju-card" style="border-top:3px solid #7F77DD;">
+      <div class="saju-card-title" style="color:#3C3489;">&#9883; 오행 분포</div>
+      <div class="ohang-row">
+        <div class="ohang-label"><span>&#127807; 木 (목)</span><span>1</span></div>
+        <div class="ohang-bar"><div class="ohang-fill" style="width:12.5%; background:#4ADE80;"></div></div>
+      </div>
+      <div class="ohang-row">
+        <div class="ohang-label"><span>&#128293; 火 (화)</span><span>1</span></div>
+        <div class="ohang-bar"><div class="ohang-fill" style="width:12.5%; background:#FB923C;"></div></div>
+      </div>
+      <div class="ohang-row">
+        <div class="ohang-label"><span>&#127774; 土 (토)</span><span>3 &#9650;</span></div>
+        <div class="ohang-bar"><div class="ohang-fill" style="width:37.5%; background:#A78BFA;"></div></div>
+      </div>
+      <div class="ohang-row">
+        <div class="ohang-label"><span>&#128301; 金 (금)</span><span>2</span></div>
+        <div class="ohang-bar"><div class="ohang-fill" style="width:25%; background:#94A3B8;"></div></div>
+      </div>
+      <div class="ohang-row">
+        <div class="ohang-label"><span>&#128167; 水 (수)</span><span>1</span></div>
+        <div class="ohang-bar"><div class="ohang-fill" style="width:12.5%; background:#38BDF8;"></div></div>
+      </div>
+      <div style="margin-top:12px; font-size:11px; color:#888; line-height:1.7;">
+        토(土) 강함 → 금(金) 받쳐주고 → 수(水) 중심이지만 눌린 구조<br>목(木)·화(火)는 상대적으로 약함
+      </div>
+    </div>
+
+    <div class="saju-card" style="border-top:3px solid #38BDF8;">
+      <div class="saju-card-title" style="color:#0C447C;">&#128167; 일간 · 임수(壬水)</div>
+      <div style="font-size:12px; color:#555; line-height:1.85; margin-bottom:12px;">
+        큰 바다 같은 사람. 사고가 깊고 직감이 강하며 사람 심리를 정확하게 읽는 타입.<br><br>
+        <strong>수(水)가 토(土)에 눌린 구조</strong>라 생각이 많아지고, 감정을 안으로 가두는 경향이 있음.
+      </div>
+      <div class="saju-tags">
+        <span class="saju-tag blue">깊은 사고</span>
+        <span class="saju-tag blue">강한 직감</span>
+        <span class="saju-tag blue">심리 분석</span>
+        <span class="saju-tag caution">감정 억누름</span>
+        <span class="saju-tag caution">자기검열 강함</span>
+        <span class="saju-tag caution">밤에 생각 많음</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 성향 분석 -->
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#129504; 토(土)가 강한 사람의 성향</div>
+    <div class="saju-insight-body">
+      삶 전체를 <strong>관리하려는 성향</strong>이 강합니다. 계획 없이 움직이면 불안하고, 인간관계에도 기준이 있으며 감정이 흔들려도 겉으로는 통제합니다.<br><br>
+      주변에서는 <strong>"단단하다 · 야무지다 · 현실적이다"</strong>고 보지만, 정작 본인은 마음이 무거운 경우가 많습니다. 책임을 혼자 짊어지고, 무너지기 직전까지 버티는 패턴이 반복되기 쉽습니다.
+    </div>
+    <div class="saju-tags" style="margin-top:12px;">
+      <span class="saju-tag positive">추진력</span>
+      <span class="saju-tag positive">책임감</span>
+      <span class="saju-tag positive">현실적</span>
+      <span class="saju-tag positive">관리형</span>
+      <span class="saju-tag caution">혼자 버팀</span>
+      <span class="saju-tag caution">감정 누적</span>
+    </div>
+  </div>
+
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#127807; 목(木)이 약하지만 숨어있는 감성</div>
+    <div class="saju-insight-body">
+      목이 약해 새로운 시작 앞에서 망설이지만, <strong>월지 卯木</strong>이 중요하게 자리하고 있어 감성·창의성·표현 욕구는 분명히 존재합니다.<br><br>
+      예술 감각, 분위기 감각, 말의 뉘앙스, 사람 심리 읽기, 콘텐츠 감각이 굉장히 좋은 편임에도 <strong>"내가 이걸 해도 되나?"</strong>를 오래 고민하는 타입입니다.
+    </div>
+  </div>
+
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#128293; 화(火)가 약한 의미 — 재물운</div>
+    <div class="saju-insight-body">
+      임수 일간에게 재성은 火. 돈에 대한 에너지 순환이 느리지만, 돈만 보는 일은 오래 못 갑니다.<br><br>
+      대신 <strong>좋아하는 일에 불이 붙는 순간</strong> 재물운도 같이 살아나는 구조입니다.<br>
+      안정 · 만족감 · 의미 · 인간관계를 더 우선시하는 경향이 있습니다.
+    </div>
+  </div>
+
+  <!-- 필요한 기운 -->
+  <div class="saju-grid">
+    <div class="saju-card" style="border-top:3px solid #4ADE80;">
+      <div class="saju-card-title" style="color:#085041;">&#127807; 필요한 기운 — 목(木)</div>
+      <div style="font-size:12px; color:#555; line-height:1.8; margin-bottom:10px;">새로운 사람·환경·배움이 들어와야 운이 살아납니다. 가만히 반복되는 환경에 오래 있으면 마음이 말라갑니다.</div>
+      <div class="saju-tags">
+        <span class="saju-tag positive">글쓰기</span>
+        <span class="saju-tag positive">콘텐츠</span>
+        <span class="saju-tag positive">여행</span>
+        <span class="saju-tag positive">언어 공부</span>
+        <span class="saju-tag positive">창작·기획</span>
+        <span class="saju-tag positive">심리 공부</span>
+      </div>
+    </div>
+    <div class="saju-card" style="border-top:3px solid #FB923C;">
+      <div class="saju-card-title" style="color:#92400E;">&#128293; 필요한 기운 — 화(火)</div>
+      <div style="font-size:12px; color:#555; line-height:1.8; margin-bottom:10px;">자신감·표현력·활력을 의미합니다. 혼자 오래 있으면 기운이 가라앉기 쉽고, 밤낮 바뀌는 생활은 좋지 않습니다.</div>
+      <div class="saju-tags">
+        <span class="saju-tag caution">햇빛</span>
+        <span class="saju-tag caution">사람 많은 공간</span>
+        <span class="saju-tag caution">운동</span>
+        <span class="saju-tag caution">발표·표현</span>
+        <span class="saju-tag caution">밝은 색감</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 잘 맞는 직업 -->
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#128188; 직업적으로 잘 맞는 분야</div>
+    <div class="saju-insight-body" style="margin-bottom:10px;">
+      단순 생계형보다 <strong>의미 + 안정 + 사람</strong>이 연결될 때 오래 갑니다.<br>감각·분석·심리·조율·기획 능력이 굉장히 좋은 편입니다.
+    </div>
+    <div style="font-size:11px; color:#888; margin-bottom:8px;">&#128295; 임베디드 · 반도체 · DevOps</div>
+    <div class="career-grid">
+      <div class="career-item">자동차 임베디드 SW</div>
+      <div class="career-item">ADAS / 자율주행</div>
+      <div class="career-item">RTOS 개발</div>
+      <div class="career-item">BSP / 드라이버</div>
+      <div class="career-item">반도체 장비 SW</div>
+      <div class="career-item">FPGA 설계</div>
+      <div class="career-item">CI/CD DevOps</div>
+      <div class="career-item">정적분석 자동화</div>
+      <div class="career-item">A-SPICE 품질</div>
+      <div class="career-item">테스트 자동화</div>
+      <div class="career-item">IoT 시스템</div>
+      <div class="career-item">리눅스 커널</div>
+    </div>
+    <div style="margin-top:10px; font-size:11px; color:#888;">&#127807; 사주적으로도 잘 맞는 분야</div>
+    <div class="career-grid" style="margin-top:6px;">
+      <div class="career-item" style="background:#E1F5EE; border-color:#5DCAA5; color:#085041;">기획·프로세스 설계</div>
+      <div class="career-item" style="background:#E1F5EE; border-color:#5DCAA5; color:#085041;">글로벌 기술 협업</div>
+      <div class="career-item" style="background:#E1F5EE; border-color:#5DCAA5; color:#085041;">기술 교육·멘토링</div>
+      <div class="career-item" style="background:#E1F5EE; border-color:#5DCAA5; color:#085041;">테크 콘텐츠</div>
+    </div>
+  </div>
+
+  <!-- 현재 운 흐름 -->
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#127774; 현재 운 흐름 — 丙子 대운</div>
+    <div class="luck-timeline">
+      <div class="luck-item"><div class="luck-dot"></div><div class="luck-text"><strong>재물 흐름 변화</strong> — 좋아하는 일과 연결될 때 살아남</div></div>
+      <div class="luck-item"><div class="luck-dot"></div><div class="luck-text"><strong>인간관계 변화</strong> — 사람 보는 눈이 정확해지는 시기</div></div>
+      <div class="luck-item"><div class="luck-dot"></div><div class="luck-text"><strong>자기 가치 재정립</strong> — "내가 어떤 삶을 살고 싶은가"가 핵심</div></div>
+      <div class="luck-item"><div class="luck-dot"></div><div class="luck-text"><strong>단순 안정만으론 부족</strong> — 자기 색깔이 점점 선명해지는 구조</div></div>
+    </div>
+  </div>
+
+  <!-- 건강 -->
+  <div class="saju-insight">
+    <div class="saju-insight-title">&#129657; 건강 주의 포인트</div>
+    <div class="saju-insight-body">
+      토가 강하고 수가 눌리면 <strong>소화·위장·부종·순환·스트레스성 피로</strong>를 잘 관리해야 합니다.<br>
+      생각이 많아지면 수면 질이 떨어질 수 있어요. 밤늦게까지 걱정 루프·감정 누적이 반복되지 않도록 주의!
+    </div>
+    <div class="saju-tags" style="margin-top:10px;">
+      <span class="saju-tag caution">소화·위장 관리</span>
+      <span class="saju-tag caution">수면 습관</span>
+      <span class="saju-tag caution">감정 해소</span>
+      <span class="saju-tag positive">규칙적 운동</span>
+      <span class="saju-tag positive">햇빛 충전</span>
+    </div>
+  </div>
+
+  <div class="saju-quote">
+    <p>&#128302; "사주는 단순한 운명이 아니라, 어떤 방향으로 균형을 맞추며 살아가야 하는가를 보여주는 지도입니다."<br><br>
+    억지로 완벽하려 하기보다 <strong>내가 살아나는 환경</strong>을 찾는 것이 지금 이 시기에 가장 중요합니다.<br>
+    시간이 갈수록 자기 색깔이 더 선명해지는 구조 — 사람과 감각을 다루는 힘이 가장 큰 무기입니다.</p>
+  </div>
+
+</div>
+</div>
+
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-inner">
