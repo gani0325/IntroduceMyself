@@ -93,6 +93,9 @@
   .cat-goal .item-card { background: #F1EFE8; border: 1px dashed #B4B2A9; }
   .cat-goal .item-title { color: #2C2C2A; }
   .cat-goal .item-desc { color: #5F5E5A; }
+  .cat-goal .item-card { cursor: default; }
+  .cat-goal .item-card::after { display: none; }
+  .cat-goal .item-card:hover { filter: none; transform: none; }
   .goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
   .goal-card { background: #fff; border-radius: 8px; padding: 12px; border: 1px solid #ddd; }
   .goal-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #1a1a1a; }
@@ -138,18 +141,18 @@
   .cert-card.cc-cert .cert-img-wrap { background: #FAEEDA; }
   .cert-card.cc-cert .cert-name { color: #633806; }
   .cert-card.cc-cert .cert-card-body { border-top: 3px solid #EF9F27; }
-  .cert-img-wrap { width: 100%; aspect-ratio: 4/3; background: #f0f0ee; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #bbb; position: relative; overflow: hidden; }
-  .cert-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .cert-img-wrap .placeholder-icon { font-size: 28px; }
-  .cert-img-wrap .placeholder-text { font-size: 11px; color: #bbb; }
-  .cert-card-body { padding: 10px 12px; }
+  .cert-img-wrap { width: 100%; height: 160px; background: #f0f0ee; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0; color: #bbb; position: relative; overflow: hidden; padding-bottom: 8px; }
+  .cert-img-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cert-img-wrap .placeholder-icon { font-size: 24px; padding: 6px 0; flex-shrink: 0; }
+  .placeholder-icon { display: none; }
+  .cert-card-body { padding: 10px 12px; text-align: center; }
   .cert-card-body .cert-name { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
   .cert-card-body .cert-date { font-size: 11px; color: #999; }
   .lightbox { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,.85); align-items: center; justify-content: center; padding: 1rem; }
   .lightbox.open { display: flex; }
   .lightbox-inner { background: #fff; border-radius: 16px; max-width: 600px; width: 100%; overflow: hidden; position: relative; }
-  .lightbox-img-wrap { width: 100%; aspect-ratio: 4/3; background: #f0f0ee; display: flex; align-items: center; justify-content: center; }
-  .lightbox-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+  .lightbox-img-wrap { position: relative; width: 100%; height: 70vh; background: #000; overflow: hidden; }
+  .lightbox-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
   .lightbox-info { padding: 16px 20px; }
   .lightbox-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
   .lightbox-info p { font-size: 13px; color: #666; }
@@ -237,10 +240,7 @@
   .gallery-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
   .gallery-card.g-hidden { display: none; }
   .gallery-img-wrap {
-    width: 100%; aspect-ratio: 4/3; background: #f5f5f3;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 6px; overflow: hidden; position: relative;
+    height: 180px;  /* ← 이걸로 변경 */
   }
   .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .gallery-placeholder { font-size: 26px; }
@@ -249,8 +249,8 @@
     padding: 7px 10px; font-size: 11px; font-weight: 600;
     color: #444; border-top: 1px solid #f0f0ee;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: center;
   }
-
   .about-section-title { text-align: center; margin-bottom: 2rem; padding-top: 1rem; }
   .about-section-title h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
   .about-section-title p { font-size: 13px; color: #888; }
@@ -304,7 +304,7 @@
       <div class="item-year">2019 &#8211; 2023</div>
       <div class="item-card" onclick="goToCert('cert-school')">
         <div class="item-title">&#127891; 가천대학교 &#8212; 의용생체공학 + 컴퓨터공학 복수전공</div>
-        <div class="item-desc">학업 우수상(Cum Laude) · 장학금 · 중학교~대학 개근<br>학과 학생회 총무 · 학술 스터디 동아리 회장 · 댄스 동아리 총무<br>&#8594; 하드웨어와 소프트웨어가 만나는 지점에 관심을 가지게 된 출발점</div>
+        <div class="item-desc">학업 우수상(Cum Laude) · 장학금 · 중학교~대학 개근<br>학과 교내 학생회 총무 · 학술 스터디 동아리 회장 · 댄스 동아리 총무<br>&#8594; 하드웨어와 소프트웨어가 만나는 지점에 관심을 가지게 된 출발점</div>
       </div>
     </div>
 
@@ -408,7 +408,7 @@
       <div class="item-dot big"></div>
       <div class="item-year">2026 &#8211; 현재 · 수료 예정 2026.10</div>
       <div class="item-card" style="border-width:2px;" onclick="goToCert('cert-edu')">
-        <div class="item-title">&#128295; 성남 시스템반도체 아카데미 (수강 중)</div>
+        <div class="item-title">&#128295; 성남 제5기 시스템 반도체(설계) 아카데미 (수강 중)</div>
         <div class="item-desc">임베디드 시스템 · 리눅스 · 프로그래밍 언어<br>FPGA 설계실습 · Verilog HDL · 반도체 8대 공정 · Digital Interface<br>ARM 기반 임베디드시스템 설계 · DFT · 테스트 자동화</div>
       </div>
     </div>
@@ -472,43 +472,51 @@
   </div>
 
   <div class="cert-group" id="cert-school">
-    <div class="cert-group-label" style="border-bottom-color:#7F77DD;"><div class="dot" style="background:#7F77DD;"></div>학업</div>
+    <div class="cert-group-label" style="border-bottom-color:#7F77DD;"><div class="dot" style="background:#7F77DD;"></div>학업·수상</div>
     <div class="cert-grid">
-      <div class="cert-card cc-school" onclick="openLightbox('학업','가천대학교 졸업증서','2023')"><div class="cert-img-wrap"><!-- <img src="images/school_졸업증서.jpg" alt="졸업증서"> --><div class="placeholder-icon">&#127891;</div><div class="placeholder-text">images/school_졸업증서.jpg</div></div><div class="cert-card-body"><div class="cert-name">졸업증서</div><div class="cert-date">가천대학교 · 2023</div></div></div>
-      <div class="cert-card cc-school" onclick="openLightbox('학업','학업 우수상 (Cum Laude)','2023')"><div class="cert-img-wrap"><!-- <img src="images/school_우수상.jpg" alt="학업 우수상"> --><div class="placeholder-icon">&#127941;</div><div class="placeholder-text">images/school_우수상.jpg</div></div><div class="cert-card-body"><div class="cert-name">학업 우수상 (Cum Laude)</div><div class="cert-date">가천대학교 · 2023</div></div></div>
-      <div class="cert-card cc-school" onclick="openLightbox('학업','iNES 연구실 활동','2021')"><div class="cert-img-wrap"><!-- <img src="images/school_ines.jpg" alt="iNES 연구실"> --><div class="placeholder-icon">&#128300;</div><div class="placeholder-text">images/school_ines.jpg</div></div><div class="cert-card-body"><div class="cert-name">iNES 연구실 활동</div><div class="cert-date">가천대학교 · 2021</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','iNES 연구실 활동','2021','images/school_ines.png')"><div class="cert-img-wrap"><img src="images/school_ines.png" alt="iNES 연구실"><div class="placeholder-icon">&#128300;</div></div><div class="cert-card-body"><div class="cert-name">iNES 연구실 활동</div><div class="cert-date">가천대학교 · 2021</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','JUST DO IT 2nd (최우수상)','2021','images/상1.png')"><div class="cert-img-wrap"><img src="images/상1.png" alt="JUST DO IT 2nd (최우수상)"><div class="placeholder-icon">&#128300;</div></div><div class="cert-card-body"><div class="cert-name">JUST DO IT 2nd (최우수상)</div><div class="cert-date">가천대학교 · 2021.12</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','JUST DO IT 2022 (최우수상)','2022','images/상2.png')"><div class="cert-img-wrap"><img src="images/상2.png" alt="JUST DO IT 2022 (최우수상)"><div class="placeholder-icon">&#128300;</div></div><div class="cert-card-body"><div class="cert-name">JUST DO IT 2022 (최우수상)</div><div class="cert-date">가천대학교 · 2022.05</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','찐로탐색 (최우수상)','2022','images/상3.png')"><div class="cert-img-wrap"><img src="images/상3.png" alt="찐로탐색 (최우수상)"><div class="placeholder-icon">&#128300;</div></div><div class="cert-card-body"><div class="cert-name">찐로탐색 (최우수상)</div><div class="cert-date">가천대학교 · 2022.06</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','JUST DO IT 2022 ver.2','2022','images/상4.png')"><div class="cert-img-wrap"><img src="images/상4.png" alt="JUST DO IT 2022 ver.2"><div class="placeholder-icon">&#128300;</div></div><div class="cert-card-body"><div class="cert-name">JUST DO IT 2022 ver.2</div><div class="cert-date">가천대학교 · 2022.11</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','가천대학교 졸업증서','2023','images/school_졸업증서.png')"><div class="cert-img-wrap"><img src="images/school_졸업증서.png" alt="졸업증서"><div class="placeholder-icon">&#127891;</div></div><div class="cert-card-body"><div class="cert-name">졸업증서</div><div class="cert-date">가천대학교 · 2023</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('학업','학업 우수상 (Cum Laude)','2023','images/school_우수상.png')"><div class="cert-img-wrap"><img src="images/school_우수상.png" alt="학업 우수상"><div class="placeholder-icon">&#127941;</div></div><div class="cert-card-body"><div class="cert-name">학업 우수상 (Cum Laude)</div><div class="cert-date">가천대학교 · 2023</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('교육·수료','성실상','2023.05','images/edu_엘리스_수상_성실상.png')"><div class="cert-img-wrap"><img src="images/edu_엘리스_수상_성실상.png" alt="엘리스 수상"><div class="placeholder-icon">&#127941;</div></div><div class="cert-card-body"><div class="cert-name">성실상</div><div class="cert-date">엘리스 IoT 트랙 · 2023.05</div></div></div>
+      <div class="cert-card cc-school" onclick="openLightbox('교육·수료','리더십상','2023.05','images/edu_엘리스_수상_리더십상.png')"><div class="cert-img-wrap"><img src="images/edu_엘리스_수상_리더십상.png" alt="엘리스 수상"><div class="placeholder-icon">&#127941;</div></div><div class="cert-card-body"><div class="cert-name">리더십상</div><div class="cert-date">엘리스 IoT 트랙 · 2023.05</div></div></div>
     </div>
   </div>
 
   <div class="cert-group" id="cert-edu">
     <div class="cert-group-label" style="border-bottom-color:#1D9E75;"><div class="dot" style="background:#1D9E75;"></div>교육·수료</div>
     <div class="cert-grid">
-      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','엘리스 IoT 트랙 수료증','2023.05')"><div class="cert-img-wrap"><!-- <img src="images/edu_엘리스_수료증.jpg" alt="엘리스 수료증"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/edu_엘리스_수료증.jpg</div></div><div class="cert-card-body"><div class="cert-name">엘리스 IoT 트랙 수료증</div><div class="cert-date">2023.05</div></div></div>
-      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','엘리스 성실상·리더십상','2023.05')"><div class="cert-img-wrap"><!-- <img src="images/edu_엘리스_수상.jpg" alt="엘리스 수상"> --><div class="placeholder-icon">&#127941;</div><div class="placeholder-text">images/edu_엘리스_수상.jpg</div></div><div class="cert-card-body"><div class="cert-name">성실상 · 리더십상</div><div class="cert-date">엘리스 IoT 트랙 · 2023.05</div></div></div>
-      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','KOSTA 수료증','2023.12')"><div class="cert-img-wrap"><!-- <img src="images/edu_KOSTA.jpg" alt="KOSTA 수료증"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/edu_KOSTA.jpg</div></div><div class="cert-card-body"><div class="cert-name">KOSTA 수료증</div><div class="cert-date">C기반 스마트 IoT · 2023.12</div></div></div>
-      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','하와이 어학연수','2022.06-07')"><div class="cert-img-wrap"><!-- <img src="images/edu_hawaii.jpg" alt="하와이 어학연수"> --><div class="placeholder-icon">&#9992;&#65039;</div><div class="placeholder-text">images/edu_hawaii.jpg</div></div><div class="cert-card-body"><div class="cert-name">하와이 단기 어학연수</div><div class="cert-date">2022.06 &#8211; 07</div></div></div>
-      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','성남 시스템반도체 아카데미','2026')"><div class="cert-img-wrap"><!-- <img src="images/edu_academy.jpg" alt="시스템반도체 아카데미"> --><div class="placeholder-icon">&#128295;</div><div class="placeholder-text">images/edu_academy.jpg</div></div><div class="cert-card-body"><div class="cert-name">시스템반도체 아카데미</div><div class="cert-date">성남 · 2026 (수강중)</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','BOAZ 빅데이터 데이터분석 18기','2022.01-2023.01','images/edu_BOAZ.png')"><div class="cert-img-wrap"><img src="images/edu_BOAZ.png" alt="BOAZ 빅데이터 데이터분석 18기"><div class="placeholder-icon">&#9992;&#65039;</div></div><div class="cert-card-body"><div class="cert-name">BOAZ 빅데이터 데이터분석 18기</div><div class="cert-date">대학(원)생 빅데이터 연합동아리 BOAZ · 2022.01 &#8211; 2023.01</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','아름샘봉사단 교육 봉사','2022.04-07','images/edu_volunteer.png')"><div class="cert-img-wrap"><img src="images/edu_volunteer.png" alt="아름샘봉사단 교육 봉사"><div class="placeholder-icon">&#9992;&#65039;</div></div><div class="cert-card-body"><div class="cert-name">아름샘봉사단 교육 봉사</div><div class="cert-date">두드림 서포터즈 · 2022.04 &#8211; 2022.07</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','하와이 어학연수','2022.06-07','images/edu_hawaii.png')"><div class="cert-img-wrap"><img src="images/edu_hawaii.png" alt="하와이 어학연수"><div class="placeholder-icon">&#9992;&#65039;</div></div><div class="cert-card-body"><div class="cert-name">하와이 단기 어학연수</div><div class="cert-date">하와이 단기 엘리트 코스 · 2022.06 &#8211; 07</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','2022 오픈소스 컨트리뷰션 아카데미','2022.07-10','images/edu_open.png')"><div class="cert-img-wrap"><img src="images/edu_open.png" alt="2022 오픈소스 컨트리뷰션 아카데미"><div class="placeholder-icon">&#9992;&#65039;</div></div><div class="cert-card-body"><div class="cert-name">2022 오픈소스 컨트리뷰션 아카데미</div><div class="cert-date">과학기술정보통신부 · 2022.07 &#8211; 10</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','엘리스 IoT 트랙 수료증','2023.05','images/edu_엘리스_수료증.png')"><div class="cert-img-wrap"><img src="images/edu_엘리스_수료증.png" alt="엘리스 수료증"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">엘리스 IoT 트랙 수료증</div><div class="cert-date">엘리스 IoT 트랙 · 2022.11 - 2023.05</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','KOSTA 수료증','2023.12','images/edu_KOSTA.png')"><div class="cert-img-wrap"><img src="images/edu_KOSTA.png" alt="KOSTA 수료증"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">C기반 스마트 IoT 개발자 수료증</div><div class="cert-date">KOSTA · 2023.08 - 2023.12</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','반도체 SW개발 수료증','2024.02','images/edu_comento.png')"><div class="cert-img-wrap"><img src="images/edu_comento.png" alt="코멘토 반도체 SW개발 수료증"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">반도체 SW개발 수료증</div><div class="cert-date">Comento 디바이스 드라이버 · 2024.02</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','전기차 2차전지 수료증','2026.04','images/edu_weport.png')"><div class="cert-img-wrap"><img src="images/edu_weport.png" alt="전기차 2차전지 수료증"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">전기차 2차전지 수료증</div><div class="cert-date">Weport 스터디 49기 · 2026.04</div></div></div>
+      <div class="cert-card cc-edu" onclick="openLightbox('교육·수료','성남 제5기 시스템 반도체(설계) 아카데미','2026','images/edu_academy.png')"><div class="cert-img-wrap"><img src="images/edu_academy.png" alt="성남 제5기 시스템 반도체(설계) 아카데미"><div class="placeholder-icon">&#128295;</div></div><div class="cert-card-body"><div class="cert-name">제5기 시스템반도체(설계) 아카데미</div><div class="cert-date">성남 시스템반도체 아카데미 · 2026 (수강중)</div></div></div>
     </div>
   </div>
 
   <div class="cert-group" id="cert-work">
     <div class="cert-group-label" style="border-bottom-color:#378ADD;"><div class="dot" style="background:#378ADD;"></div>경력·인턴</div>
     <div class="cert-grid">
-      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','ML 모니터링 대시보드 (인포뱅크)','2022')"><div class="cert-img-wrap"><!-- <img src="images/work_infobank_dashboard.jpg" alt="인포뱅크 대시보드"> --><div class="placeholder-icon">&#128187;</div><div class="placeholder-text">images/work_infobank_dashboard.jpg</div></div><div class="cert-card-body"><div class="cert-name">ML 모니터링 대시보드</div><div class="cert-date">인포뱅크 인턴 · 2022</div></div></div>
-      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','Jenkins CI/CD 파이프라인 (HL만도)','2024')"><div class="cert-img-wrap"><!-- <img src="images/work_hlmando_cicd.jpg" alt="Jenkins CI/CD"> --><div class="placeholder-icon">&#128187;</div><div class="placeholder-text">images/work_hlmando_cicd.jpg</div></div><div class="cert-card-body"><div class="cert-name">Jenkins CI/CD 파이프라인</div><div class="cert-date">HL만도 · 2024</div></div></div>
-      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','Polyspace 정적분석 자동화 (HL만도)','2024')"><div class="cert-img-wrap"><!-- <img src="images/work_hlmando_polyspace.jpg" alt="Polyspace"> --><div class="placeholder-icon">&#128187;</div><div class="placeholder-text">images/work_hlmando_polyspace.jpg</div></div><div class="cert-card-body"><div class="cert-name">Polyspace 정적분석 자동화</div><div class="cert-date">HL만도 · 2024</div></div></div>
-      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','스마트팜 IoT 풀스택 (엘리스)','2023')"><div class="cert-img-wrap"><!-- <img src="images/work_smartfarm.jpg" alt="스마트팜 IoT"> --><div class="placeholder-icon">&#127807;</div><div class="placeholder-text">images/work_smartfarm.jpg</div></div><div class="cert-card-body"><div class="cert-name">스마트팜 IoT 풀스택</div><div class="cert-date">엘리스 프로젝트 · 2023</div></div></div>
-      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','FPGA 설계 실습','2026')"><div class="cert-img-wrap"><!-- <img src="images/work_fpga.jpg" alt="FPGA 설계"> --><div class="placeholder-icon">&#128300;</div><div class="placeholder-text">images/work_fpga.jpg</div></div><div class="cert-card-body"><div class="cert-name">FPGA 설계 실습</div><div class="cert-date">성남 아카데미 · 2026</div></div></div>
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','ML 모니터링 대시보드 (인포뱅크)','2022','images/work_infobank_dashboard.jpg')"><div class="cert-img-wrap"><img src="images/work_infobank_dashboard.jpg" alt="인포뱅크 대시보드"><div class="placeholder-icon">&#128187;</div></div><div class="cert-card-body"><div class="cert-name">ML 모니터링 대시보드</div><div class="cert-date">인포뱅크 인턴 · 2022.08 - 2022.12</div></div></div>
+      <div class="cert-card cc-work" onclick="openLightbox('경력·인턴','Jenkins CI/CD 파이프라인 (HL만도)','2024','images/work_hlmando_cicd.jpg')"><div class="cert-img-wrap"><img src="images/work_hlmando_cicd.jpg" alt="Jenkins CI/CD"><div class="placeholder-icon">&#128187;</div></div><div class="cert-card-body"><div class="cert-name">Jenkins CI/CD 파이프라인</div><div class="cert-date">HL만도 계약직 · 2024.02 &#8211; 2026.02</div></div></div>
     </div>
   </div>
 
   <div class="cert-group" id="cert-cert">
     <div class="cert-group-label" style="border-bottom-color:#EF9F27;"><div class="dot" style="background:#EF9F27;"></div>자격증</div>
     <div class="cert-grid">
-      <div class="cert-card cc-cert" onclick="openLightbox('자격증','정보처리기사','2023')"><div class="cert-img-wrap"><!-- <img src="images/cert_정보처리기사.jpg" alt="정보처리기사"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/cert_정보처리기사.jpg</div></div><div class="cert-card-body"><div class="cert-name">정보처리기사</div><div class="cert-date">2023</div></div></div>
-      <div class="cert-card cc-cert" onclick="openLightbox('자격증','SQLD','2023')"><div class="cert-img-wrap"><!-- <img src="images/cert_SQLD.jpg" alt="SQLD"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/cert_SQLD.jpg</div></div><div class="cert-card-body"><div class="cert-name">SQLD</div><div class="cert-date">2023</div></div></div>
-      <div class="cert-card cc-cert" onclick="openLightbox('자격증','리눅스마스터 2급','2023')"><div class="cert-img-wrap"><!-- <img src="images/cert_리눅스마스터.jpg" alt="리눅스마스터 2급"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/cert_리눅스마스터.jpg</div></div><div class="cert-card-body"><div class="cert-name">리눅스마스터 2급</div><div class="cert-date">2023</div></div></div>
-      <div class="cert-card cc-cert" onclick="openLightbox('자격증','CSTS FL','2022')"><div class="cert-img-wrap"><!-- <img src="images/cert_CSTS.jpg" alt="CSTS FL"> --><div class="placeholder-icon">&#128196;</div><div class="placeholder-text">images/cert_CSTS.jpg</div></div><div class="cert-card-body"><div class="cert-name">CSTS FL</div><div class="cert-date">2022</div></div></div>
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증','정보처리기사','2023','images/cert_정보처리기사.png')"><div class="cert-img-wrap"><img src="images/cert_정보처리기사.png" alt="정보처리기사"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">정보처리기사</div><div class="cert-date">2023</div></div></div>
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증','SQLD','2023','images/cert_SQLD.png')"><div class="cert-img-wrap"><img src="images/cert_SQLD.png" alt="SQLD"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">SQLD</div><div class="cert-date">2023</div></div></div>
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증','리눅스마스터 2급','2023','images/cert_리눅스마스터.png')"><div class="cert-img-wrap"><img src="images/cert_리눅스마스터.png" alt="리눅스마스터 2급"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">리눅스마스터 2급</div><div class="cert-date">2023</div></div></div>
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증','CSTS FL','2022','images/cert_CSTS.png')"><div class="cert-img-wrap"><img src="images/cert_CSTS.png" alt="CSTS FL"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">CSTS FL</div><div class="cert-date">2022</div></div></div>
+      <div class="cert-card cc-cert" onclick="openLightbox('자격증','자동차운전면허 1종자동','2024','images/cert_car.png')"><div class="cert-img-wrap"><img src="images/cert_car.png" alt="CERT CAR"><div class="placeholder-icon">&#128196;</div></div><div class="cert-card-body"><div class="cert-name">자동차운전면허 1종자동</div><div class="cert-date">2024</div></div></div>
     </div>
   </div>
 
@@ -625,104 +633,121 @@
     <!-- 그리드 -->
     <div class="gallery-grid" id="galleryGrid">
 
-      <!-- 주짓수 대회 -->
-      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 대회 2등 입상','주짓수 대회')">
+ <!-- 주짓수 대회 -->
+      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 대회 2등 입상','주짓수 대회','images/act_jiu_대회.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_jiu_대회.jpg" alt="주짓수 대회"> -->
+          <img src="images/act_jiu_대회.jpg" alt="주짓수 대회">
           <div class="gallery-placeholder">&#129355;</div>
-          <div class="gallery-placeholder-path">images/act_jiu_대회.jpg</div>
         </div>
         <div class="gallery-caption">주짓수 대회 2등 입상</div>
       </div>
-
+ 
       <!-- 주짓수 훈련 -->
-      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 훈련','주짓수 훈련')">
+      <div class="gallery-card" data-cat="jiu" onclick="openGallery('주짓수 훈련','주짓수 훈련','images/act_jiu_훈련.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_jiu_훈련.jpg" alt="주짓수 훈련"> -->
+          <img src="images/act_jiu_훈련.jpg" alt="주짓수 훈련">
           <div class="gallery-placeholder">&#129355;</div>
-          <div class="gallery-placeholder-path">images/act_jiu_훈련.jpg</div>
         </div>
         <div class="gallery-caption">주짓수 훈련</div>
       </div>
-
+ 
       <!-- 댄스 공연 -->
-      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 공연','댄스 공연·축제')">
+      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 공연','댄스 공연·축제','images/act_dance_공연.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_dance_공연.jpg" alt="댄스 공연"> -->
+          <img src="images/act_dance_공연.jpg" alt="댄스 공연">
           <div class="gallery-placeholder">&#128131;</div>
-          <div class="gallery-placeholder-path">images/act_dance_공연.jpg</div>
         </div>
         <div class="gallery-caption">댄스 공연</div>
       </div>
-
+ 
       <!-- 댄스 축제 -->
-      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 축제','댄스 공연·축제')">
+      <div class="gallery-card" data-cat="dance" onclick="openGallery('댄스 축제','댄스 공연·축제','images/act_dance_축제.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_dance_축제.jpg" alt="댄스 축제"> -->
+          <img src="images/act_dance_축제.jpg" alt="댄스 축제">
           <div class="gallery-placeholder">&#128131;</div>
-          <div class="gallery-placeholder-path">images/act_dance_축제.jpg</div>
         </div>
         <div class="gallery-caption">댄스 축제</div>
       </div>
-
+ 
       <!-- 하와이 어학연수 -->
-      <div class="gallery-card" data-cat="travel" onclick="openGallery('하와이 단기 어학연수','여행·연수')">
+      <div class="gallery-card" data-cat="travel" onclick="openGallery('하와이 단기 어학연수','여행·연수','images/act_hawaii.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_hawaii.jpg" alt="하와이 어학연수"> -->
+          <img src="images/act_hawaii.jpg" alt="하와이 어학연수">
           <div class="gallery-placeholder">&#9992;&#65039;</div>
-          <div class="gallery-placeholder-path">images/act_hawaii.jpg</div>
         </div>
         <div class="gallery-caption">하와이 어학연수</div>
       </div>
-
-      <!-- 여행 -->
-      <div class="gallery-card" data-cat="travel" onclick="openGallery('여행','여행·연수')">
+ 
+      <!-- 국가 근로자 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('국가 근로자','스터디·동아리','images/act_travel.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_travel.jpg" alt="여행"> -->
+          <img src="images/act_travel.jpg" alt="국가 근로자">
           <div class="gallery-placeholder">&#127758;</div>
-          <div class="gallery-placeholder-path">images/act_travel.jpg</div>
         </div>
-        <div class="gallery-caption">여행</div>
+        <div class="gallery-caption">국가 근로자</div>
       </div>
 
-      <!-- 스터디 -->
-      <div class="gallery-card" data-cat="study" onclick="openGallery('BOAZ 빅데이터 스터디','스터디·동아리')">
+      <!-- 딥러닝 기반 음원위치추정 모델 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('iNES 학부생연구원 음성인식 시스템','스터디·동아리','images/Talker.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_boaz.jpg" alt="BOAZ 스터디"> -->
+          <img src="images/Talker.jpg" alt="iNES 학부생연구원 음성인식 시스템">
+          <div class="gallery-placeholder">&#127758;</div>
+        </div>
+        <div class="gallery-caption">iNES 학부생연구원 음성인식 시스템</div>
+      </div>
+
+      <!-- C기반 임베디드 개발자 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('C기반 임베디드 개발자','스터디·동아리','images/KOSTA.jpg')">
+        <div class="gallery-img-wrap">
+          <img src="images/KOSTA.jpg" alt="C기반 임베디드 개발자">
+          <div class="gallery-placeholder">&#127758;</div>
+        </div>
+        <div class="gallery-caption">C기반 임베디드 개발자</div>
+      </div>
+
+      <!-- BOAZ 스터디 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('BOAZ 빅데이터 스터디','스터디·동아리','images/act_boaz.jpg')">
+        <div class="gallery-img-wrap">
+          <img src="images/act_boaz.jpg" alt="BOAZ 스터디">
           <div class="gallery-placeholder">&#128202;</div>
-          <div class="gallery-placeholder-path">images/act_boaz.jpg</div>
         </div>
         <div class="gallery-caption">BOAZ 빅데이터 스터디</div>
       </div>
-
-      <!-- 동아리 -->
-      <div class="gallery-card" data-cat="study" onclick="openGallery('학술 스터디 동아리','스터디·동아리')">
+ 
+      <!-- 학술 스터디 동아리 -->
+      <div class="gallery-card" data-cat="study" onclick="openGallery('학술 스터디 동아리','스터디·동아리','images/act_club.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_club.jpg" alt="동아리"> -->
+          <img src="images/act_club.jpg" alt="동아리">
           <div class="gallery-placeholder">&#128218;</div>
-          <div class="gallery-placeholder-path">images/act_club.jpg</div>
         </div>
         <div class="gallery-caption">학술 스터디 동아리</div>
       </div>
-
-      <!-- 일상 1 -->
-      <div class="gallery-card" data-cat="daily" onclick="openGallery('일상','일상')">
+ 
+      <!-- 교내 학생회 -->
+      <div class="gallery-card" data-cat="daily" onclick="openGallery('교내 학생회','일상','images/act_daily1.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_daily1.jpg" alt="일상"> -->
+          <img src="images/act_daily1.jpg" alt="교내 학생회">
           <div class="gallery-placeholder">&#127774;</div>
-          <div class="gallery-placeholder-path">images/act_daily1.jpg</div>
         </div>
-        <div class="gallery-caption">일상</div>
+        <div class="gallery-caption">교내 학생회</div>
+      </div>
+ 
+      <!-- 치어리딩 대회 우승 -->
+      <div class="gallery-card" data-cat="daily" onclick="openGallery('치어리딩 대회 우승','치어리딩 대회 우승','images/act_daily2.jpg')">
+        <div class="gallery-img-wrap">
+          <img src="images/act_daily2.jpg" alt="치어리딩 대회 우승">
+          <div class="gallery-placeholder">&#127774;</div>
+        </div>
+        <div class="gallery-caption">치어리딩 대회 우승</div>
       </div>
 
-      <!-- 일상 2 -->
-      <div class="gallery-card" data-cat="daily" onclick="openGallery('일상 2','일상')">
+      <!-- 런닝 -->
+      <div class="gallery-card" data-cat="daily" onclick="openGallery('런닝','런닝','images/act_daily3.jpg')">
         <div class="gallery-img-wrap">
-          <!-- <img src="images/act_daily2.jpg" alt="일상"> -->
+          <img src="images/act_daily3.jpg" alt="일상">
           <div class="gallery-placeholder">&#127774;</div>
-          <div class="gallery-placeholder-path">images/act_daily2.jpg</div>
         </div>
-        <div class="gallery-caption">일상 2</div>
+        <div class="gallery-caption">런닝</div>
       </div>
 
     </div>
@@ -947,7 +972,11 @@
     if (targetBtn) filterCert(anchorId, targetBtn);
     setTimeout(() => { const t = document.getElementById(anchorId); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
   }
-  function openLightbox(category, name, date) {
+  function openLightbox(category, name, date, imgSrc) {
+    const wrap = document.getElementById('lb-img-wrap');
+    wrap.innerHTML = imgSrc
+      ? '<img src="' + imgSrc + '" alt="' + name + '" style="width:100%;height:100%;object-fit:contain;">'
+      : '<div style="font-size:48px;">🖼️</div>';
     document.getElementById('lb-title').textContent = name;
     document.getElementById('lb-date').textContent = category + ' · ' + date;
     document.getElementById('lightbox').classList.add('open');
@@ -957,15 +986,15 @@
       document.getElementById('lightbox').classList.remove('open');
   }
   function filterGallery(cat, btn) {
-    document.querySelectorAll('#galleryGrid .cf-btn, .about-card ~ div .cf-btn').forEach(b => b.classList.remove('active'));
+    btn.closest('div').querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.gallery-card').forEach(c => {
       if (cat === 'all' || c.dataset.cat === cat) c.classList.remove('g-hidden');
       else c.classList.add('g-hidden');
     });
   }
-  function openGallery(name, category) {
-    openLightbox(category, name, '활동');
+  function openGallery(name, category, imgSrc) {
+    openLightbox(category, name, '활동', imgSrc);
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
